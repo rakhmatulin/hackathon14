@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from hackathon14.twid.views import device_single, assign_device, employer_single
+from hackathon14.twid.views import device_single, assign_device, employer_single, vote_for_update
 
 admin.autodiscover()
 
@@ -17,6 +17,7 @@ urlpatterns = patterns(
     url(r'^device/assign/(?P<device_id>\d+)/$',
         assign_device, name='assign_device'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^vote_for_update/(?P<request_id>\d+)/(?P<vote>\d+)/$', vote_for_update, name='vote_for_update'),
 )
 
 if settings.DEBUG:

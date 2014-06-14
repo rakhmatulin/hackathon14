@@ -93,11 +93,20 @@ class DeviceUpdateRequest(models.Model):
     request_message = models.TextField(null=False, blank=False)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-
+    approved = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u'%s %s' % (self.request_message, self.device.sku,)
 
+    def save(self, *args, **kwargs):
+        owners = []
+        for history_item in History.objects.filter(device=self.device):
+            owners.append(history_item.employer)
+        if len(owners)/2 < self.likes:
+            self.approved = True
+        if len(owners)/2 < self.dislikes:
+            self.approved = False
+        super(DeviceUpdateRequest, self).save(*args, **kwargs)
 
 @receiver(pre_save, sender=Device)
 def add_history(sender, **kwargs):

@@ -5,15 +5,18 @@ from hackathon14.twid.models import Device, Employer, History
 from hackathon14.utils.get_employers import json_error_response, \
     json_success_response
 
+
 def device_single(request, device_id):
     device = Device.objects.get(id=device_id)
     update_requests = DeviceUpdateRequest.objects.filter(device=device)
     history = History.objects.filter(device=device).order_by('-date')
+    owner = history[0].employer
 
     context = {
         'device': device,
         'history': history,
         'update_requests': update_requests,
+        'owner': owner,
     }
     return render_to_response('twid/device_single.html', context)
 
@@ -42,3 +45,18 @@ def assign_device(request, device_id):
             status=400)
     return json_success_response('Assigned')
 
+
+def vote_for_update(request, request_id, vote):
+    try:
+        update_request = DeviceUpdateRequest.objects.get(id=request_id)
+        if int(vote) == 1:
+            update_request.likes += 1
+        elif int(vote) == 0:
+            update_request.likes -= 1
+        update_request.save()
+    except Exception:
+        return json_error_response(
+                'Something strange happend.',
+                status=400
+        )
+    return json_success_response('Voted!')

@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db.models import Q
+from django.utils.datetime_safe import datetime
 
 
 class EmployerManager(models.Manager):
@@ -29,6 +30,9 @@ class Employer(models.Model):
     def get_absolute_url(self):
         return reverse('single_employe_view', args=(self.id,))
 
+    def get_devices(self):
+        return Device.objects.filter(employer=self)
+
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name,)
 
@@ -38,6 +42,7 @@ class DeviceManager(models.Manager):
 
 
 class Device(models.Model):
+
     sku = models.CharField(max_length=50, blank=True)
     model = models.CharField(max_length=50, blank=True)
     os = models.CharField(max_length=50, blank=True)
@@ -88,11 +93,20 @@ class DeviceUpdateRequest(models.Model):
     request_message = models.TextField(null=False, blank=False)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-
+    approved = models.BooleanField(default=False)
 
     def __unicode__(self):
         return u'%s %s' % (self.request_message, self.device.sku,)
 
+    def save(self, *args, **kwargs):
+        owners = []
+        for history_item in History.objects.filter(device=self.device):
+            owners.append(history_item.employer)
+        if len(owners)/2 < self.likes:
+            self.approved = True
+        if len(owners)/2 < self.dislikes:
+            self.approved = False
+        super(DeviceUpdateRequest, self).save(*args, **kwargs)
 
 @receiver(pre_save, sender=Device)
 def add_history(sender, **kwargs):

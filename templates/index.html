@@ -1,14 +1,27 @@
 {% extends 'common/layout.html' %}
 
+{% block js %}
+    {{ block.super }}
+    <script>
+        $(function () {
+            $("#device-filter").on("change", "input", function () {
+                $(this).closest("form").submit();
+            });
+        });
+    </script>
+{% endblock %}
+
 <!-- CONTENT -->
 <div class="clearfix"></div>
 
 {% block content %}
 <div id="device-filter" class="pull-left">
     Sort by:
-    <input type="radio" name="device-filter" value="date" checked />Date
-    <input type="radio" name="device-filter" value="name" />Name
-    <input type="radio" name="device-filter" value="owner" />Owner
+    <form action="">
+        {% for field in form %}
+            {{ field }}
+        {% endfor %}
+    </form>
 </div>
 
 <div id="device-view" class="pull-right">
@@ -26,12 +39,12 @@
         {% else %}
             <div class="device">
                 <div class="image">
-                    <a href="/device/{{ device.pk }}">
-                        <img src="/media/{{ device.image }}" />
+                    <a href="{% url 'single_device_view' device.pk %}">
+                        <img src="{{ device.image.url }}" />
                     </a>
                 </div>
                 <div class="name">
-                    <a href="/device/{{ device.pk }}">
+                    <a href="{% url 'single_device_view' device.pk %}">
                         {{ device }}
                     </a>
                 </div>
@@ -41,8 +54,8 @@
                 </div>
                 <div class="owner img-circle">
                     {% if device.employer %}
-                        <a href="/employer/{{ device.employer.id }}">
-                            <img src="{{ device.employer.image }}" class="img-circle" />
+                        <a href="{% url 'single_employe_view' device.employer.id %}">
+                            <img src="{{ device.employer.image.url }}" class="img-circle" />
                         </a>
                     {% endif %}
                 </div>

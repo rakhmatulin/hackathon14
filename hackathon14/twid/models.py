@@ -54,7 +54,7 @@ class Device(models.Model):
             Q(first_name_eng__startswith=name))
         if current_employer is not None:
             query = query.exclude(id=current_employer.id)
-        return query
+        return query[:limit]
 
 
 class History(models.Model):

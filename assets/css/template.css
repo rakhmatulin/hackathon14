@@ -47,14 +47,28 @@ a:hover {
 
 .nav {
     font-size: 24px;
-    margin: 30px 0 0 0;
 }
 
 .nav li {
-    margin-right: 20px;
+    margin-left: 20px;
 }
 
-#device-list {
+#device-search {
+    text-align: right;
+}
+
+#device-search form {
+    margin: 0;
+}
+
+#device-search input[type="text"] {
+    margin-bottom: 0;
+    font-size: 16px;
+    width: 256px;
+}
+
+#device-list,
+#employer-list {
     margin-top: 40px;
 }
 
@@ -102,7 +116,7 @@ a:hover {
     width: 50px;
     height: 50px;
     overflow: hidden;
-    background: #14eb23;
+    background: url(/static/icons/home-50.png) center center;
 }
 .device .owner img {
     width: 50px;
@@ -125,27 +139,43 @@ a:hover {
     text-transform: capitalize;
 }
 
-#device-filter {
+#device-filter,
+#employer-filter {
     font-size: 18px;
+    height: 24px;
 }
 
-#device-filter label {
+#device-filter label,
+#employer-filter label {
     font-size: 18px;
     position: relative;
     padding: 0;
 }
 
-#device-filter label input {
+#device-filter label input,
+#employer-filter label input {
     position: relative;
     top: -4px;
 }
 
-#device-filter .filter-form {
+#device-filter .filter-form,
+#employer-filter .filter-form {
     position: relative;
     top: -20px;
     left: 80px;
 }
 
+#device-filter li,
+#employer-filter li {
+    list-style: none;
+    display: inline-block;
+}
+
+#device-filter ul,
+#employer-filter ul {
+    margin: 0;
+    padding: 0;
+}
 .pagination {
     font-size: 18px;
     text-align: center;
@@ -154,19 +184,14 @@ a:hover {
 .pagination a {
     font-weight: bold;
 }
+#about {
+    min-height: 400px;
+}
 
 #about div {
     float: left;
     width: 33%;
-}
-#device-filter li {
-    list-style: none;
-    display: inline-block;
-}
-
-#device-filter ul {
-    margin: 0;
-    padding: 0;
+    text-align: center;
 }
 
 
@@ -188,7 +213,7 @@ a:hover {
 #device-map .top-rooms,
 #device-map .corridor,
 #device-map .bottom-rooms {
-    width: 1657px;
+    width: 1660px;
     border-right: 1px solid #AAA;
 }
 
@@ -205,6 +230,17 @@ a:hover {
     border: 1px solid #AAA;
     font-size: 16px;
     border-right: none;
+    overflow: hidden;
+}
+#device-map .room ul {
+    margin: 0;
+    padding: 0;
+}
+#device-map .room li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
 }
 #device-map .room.disabled {
     background: #CCC;

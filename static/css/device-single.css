@@ -3,6 +3,7 @@
     position: relative;
     margin-top: -80px;
     margin-left: 110px;
+    background: url(/static/icons/home-100.png) center center;
 }
 
 .small-history{

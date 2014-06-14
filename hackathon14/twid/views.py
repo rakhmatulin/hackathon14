@@ -11,12 +11,18 @@ def device_single(request, device_id):
     update_requests = DeviceUpdateRequest.objects.filter(device=device)
     history = History.objects.filter(device=device).order_by('-date')
     owner = history[0].employer
+    names = {}
+    for developer in Employer.objects.all():
+        names[developer.id] = developer.first_name + " " + developer.last_name
+
+    print names
 
     context = {
         'device': device,
         'history': history,
         'update_requests': update_requests,
         'owner': owner,
+        'names': names,
     }
     return render_to_response('twid/device_single.html', context)
 

@@ -2,83 +2,108 @@
 {% load staticfiles %}
 {% load static %}
 {% block content %}
-<ol class="breadcrumb">
-  <li><a href="/">Home</a></li>
-  <li> &raquo; </li>
-  <li class="active">{{ device.model }}</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li> &raquo; </li>
+        <li class="active">{{ device.model }}</li>
+    </ol>
     <div class="row">
         <div class="span2">
             <img src="/media/{{ device.image }}" class="img-rounded">
             <img id="device-owner-img" src="/media/{{ owner.image }}" class="img-circle">
         </div>
-    <div class="span7">
-    <div class="row">
-        <div class="span4">
-            <h3>{{ device.sku }}</h3>
-            <table class="table table-hover">
-                <tr>
-                    <td>model</td>
-                    <td>{{ device.model }}</td>
-                </tr>
-                <tr>
-                    <td>os</td>
-                    <td>{{ device.os }}</td>
-                </tr>
-                <tr>
-                    <td>version</td>
-                    <td>{{ device.version }}</td>
-                </tr>
-                <tr>
-                    <td>mac</td>
-                    <td>{{ device.mac }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="span3">
-            <h3>История</h3>
-            <table class="table table-hover">
-                {% for emp in history %}
-                    <tr>
-                        <td><img src="/media/{{ emp.employer.image }}" class="img-rounded small-history"></td>
-                        <td>{{ emp.employer.first_name }} {{ emp.employer.last_name }}</td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-<div class="row">
-<div class="span7"><h3>Запросы на обновление:</h3>
-<ul class="list" style="list-style-type: none;">
-               {% for request in update_requests %}
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="span2">
-                            <img src="/media/{{ request.employer.image }}" class="img-circle" style="height: 80px;width: 80px;">
-                            </div>
-                            <div class="span7">
-                                <div>
-                                    <div class="mic-info">
-                                        {{ request.employer.first_name }} {{ request.employer.last_name}} - {{ request.date }}
+        <div class="span7">
+            <div class="row">
+                <div class="span4">
+                    <h3>{{ device.sku }}</h3>
+                    <table class="table table-hover">
+                        <tr>
+                            <td>model</td>
+                            <td>{{ device.model }}</td>
+                        </tr>
+                        <tr>
+                            <td>os</td>
+                            <td>{{ device.os }}</td>
+                        </tr>
+                        <tr>
+                            <td>version</td>
+                            <td>{{ device.version }}</td>
+                        </tr>
+                        <tr>
+                            <td>mac</td>
+                            <td>{{ device.mac }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="span3">
+                    <h3>История</h3>
+                    <table class="table table-hover">
+                        {% for emp in history %}
+                            <tr>
+                                <td><img src="/media/{{ emp.employer.image }}" class="img-rounded small-history"></td>
+                                <td>{{ emp.employer.first_name }} {{ emp.employer.last_name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span7"><h3>Запросы на обновление:</h3>
+                    <ul class="list" style="list-style-type: none;">
+                        {% for request in update_requests %}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="span2">
+                                        <img src="/media/{{ request.employer.image }}" class="img-circle"
+                                             style="height: 80px;width: 80px;">
+                                    </div>
+W                                    <div class="span7">
+                                        <div>
+                                            <div class="mic-info">
+                                                {{ request.employer.first_name }} {{ request.employer.last_name }}
+                                                - {{ request.date }}
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">
+                                            {{ request.request_message }}
+                                        </div>
+                                        <div class="action" id="requst-id-{{ request.id }}">
+                                            <button id="plus" class="btn" type="button">+ {{ request.likes }}</button>
+                                            <button id="minus" class="btn btn-danger" type="button">
+                                                - {{ request.likes }}</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="comment-text">
-                                {{ request.request_message }}
-                                </div>
-                                <div class="action">
-                                    <button class="btn" type="button">+ {{ request.likes }}</button>
-                                    <button class="btn btn-danger" type="button">- {{ request.likes }}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                            </li>
 
-            {% endfor %}
-     </ul>
-    </div>
-    </div>
-    </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+            $('#plus').click(function () {
+                $.ajax({
+                    type: 'get',
+                    success: function () {
+                        console.log(111);
+                    },
+                    url: '/vote_for_update/{{ request.pk }}1/'
+                });
+            });
+            $('#minus').click(function () {
+                $.ajax({
+                    type: 'get',
+                    success: function () {
+                    console.log(-111);
+                    },
+                    url: '/vote_for_update/{{ request.pk }}0/'
+                });
+            });
+    </script>
 
 {% endblock %}

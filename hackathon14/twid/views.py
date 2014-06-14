@@ -45,3 +45,18 @@ def assign_device(request, device_id):
             status=400)
     return json_success_response('Assigned')
 
+
+def vote_for_update(request, request_id, vote):
+    try:
+        update_request = DeviceUpdateRequest.objects.get(id=request_id)
+        if int(vote) == 1:
+            update_request.likes += 1
+        elif int(vote) == 0:
+            update_request.likes -= 1
+        update_request.save()
+    except Exception:
+        return json_error_response(
+                'Something strange happend.',
+                status=400
+        )
+    return json_success_response('Voted!')

@@ -213,7 +213,7 @@ a:hover {
 #device-map .top-rooms,
 #device-map .corridor,
 #device-map .bottom-rooms {
-    width: 1657px;
+    width: 1660px;
     border-right: 1px solid #AAA;
 }
 
@@ -230,6 +230,17 @@ a:hover {
     border: 1px solid #AAA;
     font-size: 16px;
     border-right: none;
+    overflow: hidden;
+}
+#device-map .room ul {
+    margin: 0;
+    padding: 0;
+}
+#device-map .room li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
 }
 #device-map .room.disabled {
     background: #CCC;

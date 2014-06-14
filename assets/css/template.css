@@ -185,7 +185,7 @@ a:hover {
     font-weight: bold;
 }
 #about {
-    min-height: 400px;
+    min-height: 370px;
 }
 
 #about div {
@@ -273,4 +273,10 @@ a:hover {
 }
 #device-map .bottom-rooms .small {
     width: 70px;
+}
+.employer-image {
+    width: 170px;
+}
+.employer-profile {
+    min-height: 370px;
 }

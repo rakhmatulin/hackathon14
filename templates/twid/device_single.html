@@ -11,6 +11,20 @@
         <div class="span2">
             <img src="/media/{{ device.image }}" class="img-rounded">
             <img id="device-owner-img" src="/media/{{ owner.image }}" class="img-circle">
+
+            <div class="ui-widget">
+                <form>
+                    <label for="developer">Developer: </label>
+                    <input id="developer">
+                </form>
+            </div>
+            <div class="hidden">
+                <div id="names">
+                    {% for id, name in names.items %}
+                        <div class="{{ id }}">{{ name }}</div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         <div class="span7">
             <div class="row">
@@ -69,7 +83,8 @@
                                         </div>
                                         <div class="action" id="{{ request.id }}">
                                             <button class="btn plus" type="button"> {{ request.likes }}</button>
-                                            <button class="btn btn-danger minus" type="button">{{ request.dislikes }}</button>
+                                            <button class="btn btn-danger minus"
+                                                    type="button">{{ request.dislikes }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -82,35 +97,66 @@
         </div>
     </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
 
+        $(function () {
+            var names = [];
+            $("#names").children("div").each(
+                    function () {
+                        names.push(this.innerHTML);
+                    }
+            )
 
-     $('.plus').bind('click', function(){
-        var update_id = $(this).parent().attr('id');
-        var self = $(this);
-        $.ajax({
+            var accentMap = {
+                "á": "a",
+                "ö": "o"
+            };
+            var normalize = function (term) {
+                var ret = "";
+                for (var i = 0; i < term.length; i++) {
+                    ret += accentMap[ term.charAt(i) ] || term.charAt(i);
+                }
+                return ret;
+            };
+
+            $("#developer").autocomplete({
+                source: function (request, response) {
+                    var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                    response($.grep(names, function (value) {
+                        value = value.label || value.value || value;
+                        return matcher.test(value) || matcher.test(normalize(value));
+                    }));
+                }
+            });
+        });
+
+
+        $('.plus').bind('click', function () {
+            var update_id = $(this).parent().attr('id');
+            var self = $(this);
+            $.ajax({
                 type: 'get',
                 success: function () {
-                    console.log(self.text(parseInt(self.text()) + 1) );
+                    console.log(self.text(parseInt(self.text()) + 1));
 
                 },
-                url: '/vote_for_update/'+update_id+'/1/'
+                url: '/vote_for_update/' + update_id + '/1/'
             });
-     });
+        });
 
-     $('.minus').bind('click', function(){
-        var update_id = $(this).parent().attr('id');
-        var self = $(this);
-        $.ajax({
+        $('.minus').bind('click', function () {
+            var update_id = $(this).parent().attr('id');
+            var self = $(this);
+            $.ajax({
                 type: 'get',
                 success: function () {
-                    console.log(self.text(parseInt(self.text()) + 1) );
+                    console.log(self.text(parseInt(self.text()) + 1));
 
                 },
-                url: '/vote_for_update/'+update_id+'/0/'
+                url: '/vote_for_update/' + update_id + '/0/'
             });
-     });
+        });
 
     </script>
 

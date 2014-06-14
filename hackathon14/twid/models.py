@@ -2,6 +2,9 @@ from django.db import models
 from django.db.models import Q
 
 
+class EmployerManager(models.Manager):
+    pass
+
 class Employer(models.Model):
 
     profile_id = models.PositiveIntegerField()
@@ -17,11 +20,18 @@ class Employer(models.Model):
     room = models.CharField(max_length=200)
     email = models.EmailField()
 
+    objects = EmployerManager()
+
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name,)
 
+        return u'%s %s' % (self.first_name, self.last_name)
+
+
+
 class DeviceManager(models.Manager):
     pass
+
 
 class Device(models.Model):
     sku = models.CharField(max_length=50, blank=True)
@@ -45,7 +55,7 @@ class Device(models.Model):
         current_employer = self.get_current_employer()
         if current_employer is not None and current_employer == employer:
             return
-        History.objects.create(employer=employer, deviice=self)
+        return History.objects.create(employer=employer, deviice=self)
 
     def employer_autocomplete(self, name, limit=10):
         current_employer = self.get_current_employer()

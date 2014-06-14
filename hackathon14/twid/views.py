@@ -14,12 +14,12 @@ def device_single(request, device_id):
     return render_to_response('twid/device_single.html', context)
 
 
-def employe_single(request, employe_id):
-
+def employer_single(request, employer_id):
+    employer = Employer.objects.get(id=employer_id)
     context = {
-        'employe_id': employe_id
+        'employer': employer
     }
-    return render_to_response('twid/employe_single.html', context)
+    return render_to_response('twid/employer_single.html', context)
 
 
 def assign_device(request, device_id):

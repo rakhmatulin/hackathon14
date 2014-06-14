@@ -36,3 +36,7 @@ nosetests.xml
 
 # PyCharm
 .idea
+
+.vagrant
+Vagrantfile
+Vagrantfile.local

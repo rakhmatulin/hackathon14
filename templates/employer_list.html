@@ -1,0 +1,27 @@
+{% extends 'common/layout.html' %}
+
+<!-- CONTENT -->
+{% block content %}
+<div id="device-filter">
+    Sort by:
+    <input type="radio" name="device-filter" value="date" checked />Date
+    <input type="radio" name="device-filter" value="name" />Name
+    <input type="radio" name="device-filter" value="owner" />Owner
+</div>
+<ul id="employer-list">
+{% for employer in employers %}
+    {% if forloop.counter|divisibleby:6 %}
+        <div class="clearfix"></div>
+    {% else %}
+        <li>
+            <div class="employer">
+                <div class="image"><img src="/media/{{ employer.image }}" /></div>
+                <div class="name">{{ employer.first_name_eng }} {{ employer.last_name_eng }}</div>
+            </div>
+        </li>
+    {% endif %}
+{% endfor %}
+</ul>
+<div class="clearfix"></div>
+{% endblock %}
+<!-- /CONTENT -->

@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-from hackathon14.twid.views import device_single, employe_single
-import hackathon14
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from hackathon14.twid.models import Employer, History

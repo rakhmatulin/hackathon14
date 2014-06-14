@@ -16,41 +16,38 @@
 </div>
 <div class="clearfix"></div>
 
-<ul id="device-list">
+<div id="device-list">
 {% for device in devices %}
-    <li>
-        {% if forloop.counter|divisibleby:6 %}
-            <div class="clearfix"></div>
-        {% else %}
-            <div class="device">
-                <div class="image">
-                    <a href="{% url 'single_device_view' device.pk %}">
-                        <img src="{{ device.image.url }}" />
-                    </a>
-                </div>
-                <div class="name">
-                    <a href="{% url 'single_device_view' device.pk %}">
-                        {{ device }}
-                    </a>
-                </div>
-                <div class="info">
-                    <span class="os">{{ device.os }}</span>
-                    {{ device.version }}
-                </div>
-                <div class="owner img-circle">
-                    {% if device.employer %}
-                        <a href="{% url 'single_employe_view' device.employer.id %}">
-                            <img src="{{ device.employer.image.url }}" class="img-circle" />
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endif %}
-    </li>
+    <div class="device">
+        <div class="image">
+            <a href="{% url 'single_device_view' device.pk %}">
+                <img src="{{ device.image.url }}" />
+            </a>
+        </div>
+        <div class="name">
+            <a href="{% url 'single_device_view' device.pk %}">
+                {{ device }}
+            </a>
+        </div>
+        <div class="info">
+            <span class="os">{{ device.os }}</span>
+            {{ device.version }}
+        </div>
+        <div class="owner img-circle">
+            {% if device.employer %}
+                <a href="{% url 'single_employe_view' device.employer.id %}">
+                    <img src="{{ device.employer.image.url }}" class="img-circle" />
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:5 %}
+        <div class="clearfix"></div>
+    {% endif %}
 {% empty %}
     <h2>There are no devices found</h2>
 {% endfor %}
-</ul>
+</div>
 
 {% include "map.html" %}
 

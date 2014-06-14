@@ -1,0 +1,26 @@
+[
+  {
+    "DeptId": 12,
+    "Room": "123",
+    "FirstName": "V",
+    "ProfileId": 10,
+    "FirstNameEng": "V",
+    "Image": "https://example.net/image1.png",
+    "LastName": "A",
+    "LastNameEng": "A",
+    "Position": "D ",
+    "IsEnabled": true
+  },
+  {
+    "DeptId": 18,
+    "Room": "321",
+    "FirstName": "S",
+    "ProfileId": 15,
+    "FirstNameEng": "S",
+    "Image": "https://example.net/image2.png",
+    "LastName": "A",
+    "LastNameEng": "A",
+    "Position": "D",
+    "IsEnabled": true
+  }
+]

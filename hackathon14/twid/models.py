@@ -12,6 +12,6 @@ class Employer(models.Model):
     birth_day = models.DateField()
     skype = models.CharField(max_length=200, default='')
     phone = models.CharField(max_length=200, default='')
-    #image = models.ImageField()
-    room = models.PositiveIntegerField(default=0)
+    image = models.ImageField(upload_to='employer/images')
+    room = models.CharField(max_length=200)
     email = models.EmailField()

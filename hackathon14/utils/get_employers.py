@@ -108,3 +108,11 @@ class SmgApi(object):
 def json_response(data, status=200):
     return HttpResponse(
         json.dumps(data), content_type="application/json", status=status)
+
+
+def json_error_response(text, status=400):
+    return json_response({'error': {'message': text}}, status=status)
+
+
+def json_success_response(text, status=200):
+    return json_response({'success': {'message': text}}, status=status)

@@ -28,7 +28,10 @@ class Employer(models.Model):
         return reverse('single_employe_view', args=(self.id,))
 
     def __unicode__(self):
+        return u'%s %s' % (self.first_name, self.last_name,)
+
         return u'%s %s' % (self.first_name, self.last_name)
+
 
 
 class DeviceManager(models.Manager):
@@ -75,4 +78,4 @@ class History(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return u'%s' % self.model
+        return u'%s' % (self.device.sku, self.employer.last_name,)

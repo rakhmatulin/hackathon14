@@ -3,11 +3,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from hackathon14.twid.models import Employer, History
-from hackathon14.twid.views import device_single, assign_device, employe_single
+from hackathon14.twid.views import device_single, assign_device, employer_single
 
-admin.site.register(Employer)
-admin.site.register(History)
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -15,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^employers/', 'hackathon14.views.employer_list', name='employer_list'),
     url(r'^about/', 'hackathon14.views.about', name='about'),
     url(r'^device/(?P<device_id>\d+)/$', device_single, name='single_device_view'),
-    url(r'^employe/(?P<employe_id>\d+)/$', employe_single, name='single_employe_view'),
+    url(r'^employer/(?P<employe_id>\d+)/$', employer_single, name='single_employe_view'),
     url(r'^device/assign/(?P<device_id>\d+)/$',
         assign_device, name='assign_device'),
     url(r'^admin/', include(admin.site.urls)),

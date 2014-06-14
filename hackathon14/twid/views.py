@@ -1,22 +1,25 @@
 from django.shortcuts import render_to_response
-from hackathon14.twid.models import Device, Employer
+from hackathon14.twid.models import Device, Employer, History
 from hackathon14.utils.get_employers import json_response
 
 
 def device_single(request, device_id):
     device = Device.objects.get(id=device_id)
+    history = History.objects.filter(device=device)
+
     context = {
-        'device': device
+        'device': device,
+        'history': history,
     }
     return render_to_response('twid/device_single.html', context)
 
 
-def employe_single(request, employe_id):
-
+def employer_single(request, employer_id):
+    employer = Employer.objects.get(id=employer_id)
     context = {
-        'employe_id': employe_id
+        'employer': employer
     }
-    return render_to_response('twid/employe_single.html', context)
+    return render_to_response('twid/employer_single.html', context)
 
 
 def assign_device(request, device_id):

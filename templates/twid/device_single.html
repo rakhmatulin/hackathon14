@@ -12,12 +12,12 @@
             <img src="/media/{{ device.image }}" class="img-rounded">
             <img id="device-owner-img" src="/media/{{ owner.image }}" class="img-circle">
 
-            <div class="ui-widget">
-                <form>
-                    <label for="developer">Developer: </label>
-                    <input id="developer">
-                </form>
-            </div>
+            <form>
+                {% csrf_token %}
+                <label for="developer">Developer: </label>
+                <input id="developer" type="text" class="input-medium">
+                <button id="give-device-button" class="btn btn-primary" type="button">Передать девайс</button>
+            </form>
             <div class="hidden">
                 <div id="names">
                     {% for id, name in names.items %}
@@ -106,7 +106,7 @@
                     function () {
                         names.push(this.innerHTML);
                     }
-            )
+            );
 
             var accentMap = {
                 "á": "a",
@@ -156,6 +156,68 @@
                 },
                 url: '/vote_for_update/' + update_id + '/0/'
             });
+        });
+
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function sameOrigin(url) {
+            var host = document.location.host;
+            var protocol = document.location.protocol;
+            var sr_origin = '//' + host;
+            var origin = protocol + sr_origin;
+            return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                    (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') || !(/^(\/\/|http:|https:).*/.test(url));
+        }
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        var names = [];
+        var ids = [];
+
+        $("#names").children("div").each(
+                function () {
+                    ids.push(this.className);
+                    names.push(this.innerHTML);
+                }
+        );
+        $('#give-device-button').bind('click', function () {
+            names.indexOf($('#developer').val());
+            $.post(
+                    '/device/assign/' + {{ device.id }} +'/',
+                    {
+                        'employer_id': ids[names.indexOf($('#developer').val())],
+                        'csrfmiddlewaretoken': csrftoken
+                    },
+                    function () {
+                        location.reload();
+                    }
+            );
         });
 
     </script>

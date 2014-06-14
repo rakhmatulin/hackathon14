@@ -42,6 +42,13 @@
                     <span class="os">{{ device.os }}</span>
                     {{ device.version }}
                 </div>
+                <div class="owner img-circle">
+                    {% if device.employer %}
+                        <a href="/employer/{{ device.employer.id }}">
+                            <img src="{{ device.employer.image }}" class="img-circle" />
+                        </a>
+                    {% endif %}
+                </div>
             </div>
         {% endif %}
     </li>

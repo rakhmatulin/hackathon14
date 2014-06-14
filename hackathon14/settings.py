@@ -55,10 +55,19 @@ WSGI_APPLICATION = 'hackathon14.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+"""
+CREATE DATABASE twid CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER 'twiduser'@localhost IDENTIFIED BY 'welcome';
+GRANT ALL PRIVILEGES ON `twid`.* TO `twiduser`@`localhost`;
+"""
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'twid',
+        'USER': 'twiduser',
+        'PASSWORD': 'welcome',
+        'HOST': '',
+        'PORT': '3306',
     }
 }
 

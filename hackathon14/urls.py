@@ -7,10 +7,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from hackathon14.twid.views import device_single, assign_device, employer_single
 
 admin.autodiscover()
-admin.site.register(Employer)
-admin.site.register(History)
-admin.site.register(DeviceUpdateRequest)
-
 
 urlpatterns = patterns(
     '',

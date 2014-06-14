@@ -1,9 +1,9 @@
+from collections import defaultdict
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db.models import Q
-from django.utils.datetime_safe import datetime
 
 
 class EmployerManager(models.Manager):
@@ -71,6 +71,15 @@ class Device(models.Model):
         if self.employer is not None:
             query = query.exclude(id=self.employer.id)
         return query[:limit]
+
+    @classmethod
+    def get_devices_by_room(cls):
+        devices = Device.objects.filter(employer__isnull=False).\
+            select_related('employer')
+        dt = defaultdict(list)
+        for device in devices:
+            dt[device.employer.room].append(device)
+        return dict(dt)
 
     def get_absolute_url(self):
         return reverse('single_device_view', args=(self.id,))

@@ -17,6 +17,7 @@ def index(request):
     }
     devices = Device.objects.select_related('employer').\
         order_by(order_params[device_filter])
+    devices_by_room = Device.get_devices_by_room()
     return render_to_response('index.html', locals())
 
 

@@ -133,7 +133,17 @@ a:hover {
     font-size: 18px;
     position: relative;
     padding: 0;
-    top: -1px;
+}
+
+#device-filter label input {
+    position: relative;
+    top: -4px;
+}
+
+#device-filter .filter-form {
+    position: relative;
+    top: -20px;
+    left: 80px;
 }
 
 .pagination {
@@ -178,7 +188,7 @@ a:hover {
 #device-map .top-rooms,
 #device-map .corridor,
 #device-map .bottom-rooms {
-    width: 1566px;
+    width: 1657px;
     border-right: 1px solid #AAA;
 }
 
@@ -210,17 +220,20 @@ a:hover {
     background: #EEE;
 }
 
-#device-map .top-rooms .big {
-    width: 125px;
-}
 #device-map .top-rooms .disabled {
     width: 70px;
+}
+#device-map .top-rooms .big {
+    width: 125px;
 }
 #device-map .bottom-rooms .room {
     width: 88px;
 }
+#device-map .bottom-rooms .big {
+    width: 110px;
+}
 #device-map .bottom-rooms .last {
-    width: 95px;
+    width: 115px;
 }
 #device-map .bottom-rooms .small {
     width: 70px;

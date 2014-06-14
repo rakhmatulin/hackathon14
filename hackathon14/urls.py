@@ -2,12 +2,18 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
+from hackathon14.twid.models import *
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from hackathon14.twid.views import device_single, assign_device, employer_single
 
 admin.autodiscover()
+admin.site.register(Employer)
+admin.site.register(History)
+admin.site.register(DeviceUpdateRequest)
 
-urlpatterns = patterns('',
+
+urlpatterns = patterns(
+    '',
     url(r'^$', 'hackathon14.views.index', name='index'),
     url(r'^employers/', 'hackathon14.views.employer_list', name='employer_list'),
     url(r'^about/', 'hackathon14.views.about', name='about'),

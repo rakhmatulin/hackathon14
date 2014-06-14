@@ -3,11 +3,14 @@ from twid.models import Device, Employer
 
 
 def index(request):
-    devices = Device.objects.all()
+    devices = Device.objects.select_related('employer').\
+        prefetch_related('employer__device_set')
     return render_to_response('index.html', locals())
+
 
 def about(request):
     return render_to_response('about.html')
+
 
 def employer_list(request):
     employers = Employer.objects.all()

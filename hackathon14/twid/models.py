@@ -1,9 +1,11 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 
 
 class EmployerManager(models.Manager):
     pass
+
 
 class Employer(models.Model):
 
@@ -22,6 +24,9 @@ class Employer(models.Model):
 
     objects = EmployerManager()
 
+    def get_absolute_url(self):
+        return reverse('single_employe_view', args=(self.id,))
+
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
 
@@ -38,30 +43,30 @@ class Device(models.Model):
     mac = models.CharField(max_length=50, blank=True)
     image = models.ImageField(max_length=255, null=True, blank=True, upload_to='device')
     status = models.BooleanField(default=False)
+    employer = models.ForeignKey(Employer, blank=True, null=True)
 
     objects = DeviceManager()
 
     def __unicode__(self):
         return u'%s' % self.model
 
-    def get_current_employer(self):
-        return History.objects.filter(device=self).\
-            order_by('-date').first()
-
     def assign(self, employer):
-        current_employer = self.get_current_employer()
-        if current_employer is not None and current_employer == employer:
+        if self.employer is not None and self.employer == employer:
             return
+        self.employer = employer
+        self.save()
         return History.objects.create(employer=employer, deviice=self)
 
     def employer_autocomplete(self, name, limit=10):
-        current_employer = self.get_current_employer()
         query = Employer.objects.filter(
             Q(last_name_eng__startswith=name) |
             Q(first_name_eng__startswith=name))
-        if current_employer is not None:
-            query = query.exclude(id=current_employer.id)
+        if self.employer is not None:
+            query = query.exclude(id=self.employer.id)
         return query[:limit]
+
+    def get_absolute_url(self):
+        return reverse('single_device_view', args=(self.id,))
 
 
 class History(models.Model):

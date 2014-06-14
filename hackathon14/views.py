@@ -1,4 +1,6 @@
 from django.shortcuts import render_to_response
+from twid.models import Device
 
 def index(request):
-    return render_to_response('index.html')
+    devices = Device.objects.all()
+    return render_to_response('index.html', locals())

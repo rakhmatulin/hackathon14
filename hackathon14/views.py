@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hackathon14.twid.forms import IndexFilterForm
 from twid.models import Device, Employer
+from django.db.models import Q
 
 
 def index(request):
@@ -20,6 +21,15 @@ def index(request):
     devices_by_room = Device.get_devices_by_room()
     return render_to_response('index.html', locals())
 
+def search(request):
+    query = request.GET.get('query')
+    devices = Device.objects.select_related('employer').\
+        filter(
+            Q(sku__icontains=query) |
+            Q(model__icontains=query)).\
+        order_by('-history__date')
+    devices_by_room = Device.get_devices_by_room()
+    return render_to_response('search.html', locals())
 
 def about(request):
     return render_to_response('about.html')

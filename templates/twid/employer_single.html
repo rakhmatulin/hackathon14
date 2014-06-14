@@ -11,7 +11,7 @@
         <div class="span2">
             <img src="/media/{{ employer.image }}" />
         </div>
-        <div class="span5">
+        <div class="span4">
             <h2>{{ employer.first_name_eng }} {{ employer.last_name_eng }}</h2>
             <table class="table table-hover">
                 <tr>
@@ -30,6 +30,16 @@
                     <td>Phone</td>
                     <td>{{ employer.phone }}</td>
                 </tr>
+            </table>
+        </div>
+        <div class="span3">
+            <h3>Устройства</h3>
+            <table class="table table-hover">
+                {% for device in devices %}
+                    <tr>
+                        <td><a href="/device/{{device.pk}}">{{device}}</a></td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     </div>

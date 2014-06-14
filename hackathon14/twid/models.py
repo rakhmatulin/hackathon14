@@ -80,15 +80,11 @@ class Device(models.Model):
 
     @classmethod
     def get_devices_by_room(cls, query):
+        devices = Device.objects.filter(employer__isnull=False).\
+            select_related('employer')
         if query:
-            devices = Device.objects.filter(
-                Q(employer__isnull=False) &
-                (Q(sku__icontains=query) |
-                 Q(model__icontains=query))).\
-                select_related('employer')
-        else:
-            devices = Device.objects.filter(employer__isnull=False).\
-                select_related('employer')
+            devices = devices.filter(
+                Q(sku__icontains=query) | Q(model__icontains=query))
         dt = defaultdict(list)
         for device in devices:
             dt[device.employer.room].append(device)

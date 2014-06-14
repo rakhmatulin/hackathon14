@@ -10,8 +10,10 @@
     <div class="row">
         <div class="span2">
             <img src="/media/{{ device.image }}" class="img-rounded">
-            <img id="device-owner-img" src="http://cs608927.vk.me/v608927727/921e/FvAcJ4pdeeI.jpg" class="img-circle">
+            <img id="device-owner-img" src="/media/{{ owner.image }}" class="img-circle">
         </div>
+    <div class="span7">
+    <div class="row">
         <div class="span4">
             <h3>{{ device.sku }}</h3>
             <table class="table table-hover">
@@ -45,45 +47,38 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="span7 offset2">
-            {% for request in update_requests %}
-                {{ request.employer }}
-                {{ request.date }}
-                {{ request.request_message }}
+<div class="row">
+<div class="span7"><h3>Запросы на обновление:</h3>
+<ul class="list" style="list-style-type: none;">
+               {% for request in update_requests %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="span2">
+                            <img src="/media/{{ request.employer.image }}" class="img-circle" style="height: 80px;width: 80px;">
+                            </div>
+                            <div class="span7">
+                                <div>
+                                    <div class="mic-info">
+                                        {{ request.employer.first_name }} {{ request.employer.last_name}} - {{ request.date }}
+                                    </div>
+                                </div>
+                                <div class="comment-text">
+                                {{ request.request_message }}
+                                </div>
+                                <div class="action">
+                                    <button class="btn" type="button">+ {{ request.likes }}</button>
+                                    <button class="btn btn-danger" type="button">- {{ request.likes }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
             {% endfor %}
-        <ul class="list-group">
-    <li class="list-group-item">
-        <div class="row">
-            <div class="col-xs-2 col-md-1">
-                <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" /></div>
-            <div class="col-xs-10 col-md-11">
-                <div>
-                    <a href="http://bootsnipp.com/BhaumikPatel/snippets/4ldn">Cool Sign Up</a>
-                    <div class="mic-info">
-                        By: <a href="#">Bhaumik Patel</a> on 11 Nov 2013
-                    </div>
-                </div>
-                <div class="comment-text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-                    euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
-                </div>
-                <div class="action">
-                    <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </button>
-                    <button type="button" class="btn btn-success btn-xs" title="Approved">
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </li>
-</ul>
-        </div>x
+     </ul>
     </div>
+    </div>
+    </div>
+    </div>
+
 
 {% endblock %}

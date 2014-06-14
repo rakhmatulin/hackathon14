@@ -1,7 +1,9 @@
+{% load twid %}
+
 <div id="device-map" class="hidden">
     <div class="top-rooms">
-        <div class="room big">500</div>
-        <div class="room big disabled">501</div>
+        <div class="room big">{% room devices_by_room '519' %}</div>
+        <div class="room big">501</div>
         <div class="room">502</div>
         <div class="room">503</div>
         <div class="room">504</div>

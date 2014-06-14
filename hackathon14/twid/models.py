@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 
 class Employer(models.Model):
@@ -31,6 +32,25 @@ class Device(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.model
+
+    def get_current_employer(self):
+        return History.objects.filter(device=self).\
+            order_by('-date').first()
+
+    def assign(self, employer):
+        current_employer = self.get_current_employer()
+        if current_employer is not None and current_employer == employer:
+            return
+        History.objects.create(employer=employer, deviice=self)
+
+    def employer_autocomplete(self, name, limit=10):
+        current_employer = self.get_current_employer()
+        query = Employer.objects.filter(
+            Q(last_name_eng__startswith=name) |
+            Q(first_name_eng__startswith=name))
+        if current_employer is not None:
+            query = query.exclude(id=current_employer.id)
+        return query
 
 
 class History(models.Model):

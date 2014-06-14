@@ -5,6 +5,7 @@ from hackathon14.twid.models import Device, Employer, History
 from hackathon14.utils.get_employers import json_error_response, \
     json_success_response
 
+
 def device_single(request, device_id):
     device = Device.objects.get(id=device_id)
     update_requests = DeviceUpdateRequest.objects.filter(device=device)

@@ -2,7 +2,6 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls.static import static
-from hackathon14.twid.models import *
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from hackathon14.twid.views import device_single, assign_device, employer_single
 

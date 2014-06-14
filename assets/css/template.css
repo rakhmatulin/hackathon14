@@ -54,6 +54,10 @@ a:hover {
     margin-right: 20px;
 }
 
+#device-list {
+    margin-top: 40px;
+}
+
 #device-list li,
 #employer-list li {
     display: inline;
@@ -122,7 +126,6 @@ a:hover {
 }
 
 #device-filter {
-    padding-bottom: 40px;
     font-size: 18px;
 }
 
@@ -144,4 +147,70 @@ a:hover {
 #about div {
     float: left;
     width: 33%;
+}
+
+#device-view {
+    font-size: 16px;
+}
+
+#device-view a:hover,
+#device-view a.active {
+    color: #999;
+}
+
+#device-map {
+    margin-top: 40px;
+    width: 960px;
+    overflow-x: scroll;
+}
+
+#device-map .top-rooms,
+#device-map .corridor,
+#device-map .bottom-rooms {
+    width: 1566px;
+    border-right: 1px solid #AAA;
+}
+
+#device-map .corridor {
+    height: 80px;
+    background: #CCC;
+}
+
+#device-map .room {
+    float: left;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #AAA;
+    font-size: 16px;
+    border-right: none;
+}
+#device-map .room.disabled {
+    background: #CCC;
+}
+#device-map .skip {
+    float: left;
+    width: 30px;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #AAA;
+    font-size: 16px;
+    border-right: none;
+    background: #EEE;
+}
+
+#device-map .top-rooms .big {
+    width: 125px;
+}
+#device-map .top-rooms .disabled {
+    width: 70px;
+}
+#device-map .bottom-rooms .room {
+    width: 88px;
+}
+#device-map .bottom-rooms .last {
+    width: 95px;
+}
+#device-map .bottom-rooms .small {
+    width: 70px;
 }

@@ -2,6 +2,9 @@ from django.db import models
 from django.db.models import Q
 
 
+class EmployerManager(models.Manager):
+    pass
+
 class Employer(models.Model):
 
     profile_id = models.PositiveIntegerField()
@@ -16,6 +19,8 @@ class Employer(models.Model):
     image = models.ImageField(upload_to='employer', null=True, blank=True)
     room = models.CharField(max_length=200)
     email = models.EmailField()
+
+    objects = EmployerManager()
 
     def __unicode__(self):
         return u'%s %s' % self.first_name, self.last_name

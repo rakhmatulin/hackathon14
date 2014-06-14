@@ -29,6 +29,7 @@
                                     <a href="{{ history_item.old_employer.get_absolute_url }}">
                                         {{ history_item.old_employer.last_name_eng }} {{ history_item.old_employer.first_name_eng }}
                                     </a>
+                                    <a class="icon-search" href="{% url 'history_list_employer' history_item.old_employer_id %}"></a>
                                 </div>
                             {% else %}
                                 <div class="icon-user"></div>
@@ -44,6 +45,7 @@
                                 <a href="{{ history_item.employer.get_absolute_url }}">
                                     {{ history_item.employer.last_name_eng }} {{ history_item.employer.first_name_eng }}
                                 </a>
+                                <a class="icon-search" href="{% url 'history_list_employer' history_item.employer_id %}"></a>
                             </div>
                         </td>
                         <td class="device" style="float: none;">
@@ -56,6 +58,7 @@
                                 <a href="{{ history_item.device.get_absolute_url }}">
                                     {{ history_item.device }}
                                 </a>
+                                <a class="icon-search" href="{% url 'history_list_device' history_item.device_id %}"></a>
                             </div>
                         </td>
                         <td class="date">

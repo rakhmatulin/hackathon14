@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
 
-from hackathon14.twid.views import device_single
+from hackathon14.twid.views import device_single, employe_single
 import hackathon14
 
 from django.conf.urls.static import static
@@ -12,7 +12,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'hackathon14.views.index', name='index'),
-    url(r'^device/(?P<device_id>\d+)/$', device_single, name='device_view'),
+    url(r'^device/(?P<device_id>\d+)/$', device_single, name='single_device_view'),
+    url(r'^employe/(?P<employe_id>\d+)/$', employe_single, name='single_employe_view'),
     url(r'^admin/', include(admin.site.urls)),
 )
 

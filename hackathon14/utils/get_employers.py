@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from collections import deque
 import json
-
+import re
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils.datetime_safe import datetime
+import requests
 import logging
 from StringIO import StringIO
 import os
 from django.conf import settings
-from gevent.pool import Pool
-import requests
 from hackathon14.twid.models import Employer
 
-logging.basicConfig()
-logger = logging.getLogger('smg_api')
+logger = logging.getLogger('twid')
 
 
 class SmgApi(object):
@@ -56,17 +55,38 @@ class SmgApi(object):
     @classmethod
     def get_employers_picture(cls, url):
         picture = requests.get(url, stream=True).raw
-        return picture
+        return picture.read()
+
+    @staticmethod
+    def parse_date(date_str):
+        dt = re.search(r'\d+', date_str).group()
+        return datetime.fromtimestamp(int(int(dt) / 1000.0))
 
     def process_employer(self, employer_id):
         logger.info("Getting employer info: %s" % employer_id)
-        employer_info = self.get_employer_info(employer_id)
+        employer_info = self.get_employer_info(employer_id)['Profile']
         logger.info("Getting employer picture: %s" % employer_info['Image'])
         employer_picture = StringIO(
             self.get_employers_picture(employer_info['Image']))
-        employer = Employer(*employer_info)
-        employer.image.save(
-            '%s.png' % employer_id, employer_picture, save=False)
+        birth_day = SmgApi.parse_date(employer_info['Birthday'])
+        params = {
+            'profile_id': employer_info['ProfileId'],
+            'dept_id': employer_info['DeptId'],
+            'first_name_eng': employer_info['FirstNameEng'],
+            'last_name_eng': employer_info['LastNameEng'],
+            'first_name': employer_info['FirstName'],
+            'last_name': employer_info['LastName'],
+            'birth_day': birth_day,
+            'skype': employer_info['Skype'],
+            'phone': employer_info['Phone'],
+            'room': employer_info['Room'],
+            'email': employer_info['Email']
+        }
+        employer = Employer(**params)
+        image_name = '%s.png' % employer_id
+        suf = SimpleUploadedFile(
+            image_name, employer_picture.read(), content_type='image/png')
+        employer.image.save('%s.png' % employer_id, suf, save=False)
         employer.save()
         logger.info("Added new employer")
 
@@ -80,10 +100,5 @@ class SmgApi(object):
             with open(employers_file, 'w') as fl:
                 fl.write(json.dumps(employers))
         logger.info("Got employers list")
-        queue = deque()
         for employer in employers:
-            queue.append(int(employer['ProfileId']))
-        pool = Pool(10)
-        while queue:
-            pool.spawn(self.process_employer(queue.pop()))
-        pool.join()
+            self.process_employer(employer['ProfileId'])

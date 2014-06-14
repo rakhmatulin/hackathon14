@@ -4,7 +4,7 @@ from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
-from twid.models import Employer, History, Device
+from hackathon14.twid.models import Employer, History, Device
 
 
 class Migration(DataMigration):

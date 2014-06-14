@@ -2,8 +2,6 @@
 
 <!-- CONTENT -->
 {% block content %}
-<h1>Where Is That Device</h1>
-<hr />
 <div id="device-filter">
     Sort by:
     <input type="radio" name="device-filter" value="date" checked />Date
@@ -13,14 +11,18 @@
 <ul id="device-list">
 {% for device in devices %}
     <li>
-        <div class="device">
-            <div class="image"><img src="/media/{{ device.image }}" /></div>
-            <div class="name">{{ device }}</div>
-            <div class="info">
-                <span class="os">{{ device.os }}</span>
-                {{ device.version }}
+        {% if forloop.counter|divisibleby:6 %}
+            <div class="clearfix"></div>
+        {% else %}
+            <div class="device">
+                <div class="image"><img src="/media/{{ device.image }}" /></div>
+                <div class="name">{{ device }}</div>
+                <div class="info">
+                    <span class="os">{{ device.os }}</span>
+                    {{ device.version }}
+                </div>
             </div>
-        </div>
+        {% endif %}
     </li>
 {% endfor %}
 </ul>

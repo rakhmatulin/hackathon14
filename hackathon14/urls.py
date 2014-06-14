@@ -12,6 +12,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'hackathon14.views.index', name='index'),
+    url(r'^employers/', 'hackathon14.views.employer_list', name='employer_list'),
+    url(r'^about/', 'hackathon14.views.about', name='about'),
     url(r'^device/(?P<device_id>\d+)/$', device_single, name='device_view'),
     url(r'^admin/', include(admin.site.urls)),
 )

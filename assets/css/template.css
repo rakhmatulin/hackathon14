@@ -126,9 +126,10 @@ a:hover {
     font-size: 18px;
 }
 
-#device-filter input {
-    margin: 0 4px;
+#device-filter label {
+    font-size: 18px;
     position: relative;
+    padding: 0;
     top: -1px;
 }
 
@@ -139,9 +140,18 @@ a:hover {
 }
 .pagination a {
     font-weight: bold;
-}
 
 #about div {
     float: left;
     width: 33%;
 }
+
+#device-filter li {
+    list-style: none;
+    display: inline-block;
+
+#device-filter ul {
+    margin: 0;
+    padding: 0;
+}
+

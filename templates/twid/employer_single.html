@@ -1,0 +1,32 @@
+{% extends "common/layout.html" %}
+{% load staticfiles %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="span2">
+            <img src="/media/{{ employer.image }}" />
+        </div>
+        <div class="span5">
+            <h2>{{ employer.first_name_eng }} {{ employer.last_name_eng }}</h2>
+            <table class="table table-hover">
+                <tr>
+                    <td>Room</td>
+                    <td>{{ employer.room }}</td>
+                </tr>
+                <tr>
+                    <td>Departament</td>
+                    <td>{{ employer.dept_id }}</td>
+                </tr>
+                <tr>
+                    <td>Skype</td>
+                    <td>{{ employer.skype }}</td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>{{ employer.phone }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

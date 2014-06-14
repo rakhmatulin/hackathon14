@@ -15,28 +15,28 @@
         <div class="span7">
             <div class="row">
                 <div class="span4">
-                    <h3>{{ device.sku }}</h3>
+                    <h3>{{ device }} ({{ device.sku }})</h3>
                     <table class="table table-hover">
                         <tr>
-                            <td>model</td>
+                            <td>Model</td>
                             <td>{{ device.model }}</td>
                         </tr>
                         <tr>
-                            <td>os</td>
+                            <td>OS</td>
                             <td>{{ device.os }}</td>
                         </tr>
                         <tr>
-                            <td>version</td>
+                            <td>Version</td>
                             <td>{{ device.version }}</td>
                         </tr>
                         <tr>
-                            <td>mac</td>
+                            <td>MAC Address</td>
                             <td>{{ device.mac }}</td>
                         </tr>
                     </table>
                 </div>
                 <div class="span3">
-                    <h3>История</h3>
+                    <h3>History</h3>
                     <table class="table table-hover">
                         {% for emp in history %}
                             <tr>
@@ -48,7 +48,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="span7"><h3>Запросы на обновление:</h3>
+                <div class="span7">
+                    <h3>Update requests:</h3>
                     <ul class="list" style="list-style-type: none;">
                         {% for request in update_requests %}
                             <li class="list-group-item">

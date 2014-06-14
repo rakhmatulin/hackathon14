@@ -34,5 +34,19 @@
 {% endfor %}
 </ul>
 <div class="clearfix"></div>
+
+<div class="pagination">
+    {% if employers.has_previous %}
+        <a href="/employers?page={{ contacts.previous_page_number }}" class="pull-left">&laquo; Previous</a>
+    {% endif %}
+
+    {% if employers.has_next %}
+        <a href="/employers?page={{ employers.next_page_number }}" class="pull-right">Next &raquo;</a>
+    {% endif %}
+
+    <span class="current">
+        Page {{ employers.number }} of {{ employers.paginator.num_pages }}
+    </span>
+</div>
 {% endblock %}
 <!-- /CONTENT -->

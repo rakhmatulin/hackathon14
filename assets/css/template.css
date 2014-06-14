@@ -140,6 +140,7 @@ a:hover {
 }
 .pagination a {
     font-weight: bold;
+}
 
 #about div {
     float: left;
@@ -149,6 +150,7 @@ a:hover {
 #device-filter li {
     list-style: none;
     display: inline-block;
+}
 
 #device-filter ul {
     margin: 0;

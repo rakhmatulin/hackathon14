@@ -15,8 +15,16 @@
             <div class="clearfix"></div>
         {% else %}
             <div class="device">
-                <div class="image"><img src="/media/{{ device.image }}" /></div>
-                <div class="name">{{ device }}</div>
+                <div class="image">
+                    <a href="/device/{{ device.pk }}">
+                        <img src="/media/{{ device.image }}" />
+                    </a>
+                </div>
+                <div class="name">
+                    <a href="/device/{{ device.pk }}">
+                        {{ device }}
+                    </a>
+                </div>
                 <div class="info">
                     <span class="os">{{ device.os }}</span>
                     {{ device.version }}

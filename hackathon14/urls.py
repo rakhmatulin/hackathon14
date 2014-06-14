@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^$', 'hackathon14.views.index', name='index'),
     url(r'^search/', 'hackathon14.views.search', name='search'),
     url(r'^employers/', 'hackathon14.views.employer_list', name='employer_list'),
+    url(r'^history/', 'hackathon14.views.history_list', name='history_list'),
     url(r'^about/', 'hackathon14.views.about', name='about'),
     url(r'^device/(?P<device_id>\d+)/$', device_single, name='single_device_view'),
     url(r'^employer/(?P<employer_id>\d+)/$', employer_single, name='single_employe_view'),

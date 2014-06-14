@@ -13,7 +13,5 @@ def room(rooms_dict, room_number):
 @register.simple_tag
 def url_replace(request, field, value):
     dict_ = request.GET.copy()
-    if not dict_:
-        return ''
     dict_[field] = value
     return '?%s' % dict_.urlencode()

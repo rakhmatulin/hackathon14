@@ -95,7 +95,10 @@ class Device(models.Model):
 
 
 class History(models.Model):
-    employer = models.ForeignKey(Employer)
+    old_employer = models.ForeignKey(
+        Employer, null=True, blank=True, default=None,
+        related_name='old_employers')
+    employer = models.ForeignKey(Employer, related_name='employers')
     device = models.ForeignKey(Device)
     date = models.DateTimeField(auto_now_add=True)
     date.editable = True
@@ -136,7 +139,9 @@ def add_history(sender, **kwargs):
         device = Device.objects.get(id=instance.id)
         old_employer = device.employer
         if instance.employer != old_employer:
-            History.objects.create(employer=instance.employer, device=instance)
+            History.objects.create(
+                old_employer=old_employer,
+                employer=instance.employer, device=instance)
             instance.date_action = datetime.now()
             instance.employer.date_action = datetime.now()
             instance.employer.save()

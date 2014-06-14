@@ -13,15 +13,9 @@ def device_single(request, device_id):
     names = {}
     for developer in Employer.objects.all():
         names[developer.id] = developer.first_name + " " + developer.last_name
-
-    print names
-
-
     owner = False
     if len(history):
         owner = history[0].employer
-
-
     context = {
         'device': device,
         'history': history,

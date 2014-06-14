@@ -2,7 +2,7 @@ from django.db.models import Count
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hackathon14.twid.forms import DevicesFilterForm, EmployersFilterForm
-from twid.models import Device, Employer
+from twid.models import Device, Employer, History
 from django.db.models import Q
 
 
@@ -39,12 +39,12 @@ def index(request):
 
 
 def search(request):
-    query = request.GET.get('query')
+    query = request.GET.get('query', '')
     devices = Device.objects.select_related('employer').\
-        filter(
-            Q(sku__icontains=query) |
-            Q(model__icontains=query)).\
         order_by('-date_action')
+    if query:
+        devices = devices.filter(
+            Q(sku__icontains=query) | Q(model__icontains=query))
     devices_by_room = Device.get_devices_by_room(query)
     return render_to_response('search.html', locals())
 
@@ -80,3 +80,20 @@ def employer_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         employers = paginator.page(paginator.num_pages)
     return render_to_response('employer_list.html', locals())
+
+
+def history_list(request):
+    data = request.GET.copy()
+    all_history = History.objects.select_related(
+        'employer', 'device').order_by('-date')
+    page = data.get('page')
+    paginator = Paginator(all_history, PAGINATOR_COUNT)
+    try:
+        history = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        history = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        history = paginator.page(paginator.num_pages)
+    return render_to_response('history.html', locals())

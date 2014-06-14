@@ -2,8 +2,28 @@
 
 <!-- CONTENT -->
 {% block content %}
-<div id="content" class="container">
-    <h1>Homepage</h1>
+<h1>Where Is That Device</h1>
+<hr />
+<div id="device-filter">
+    Sort by:
+    <input type="radio" name="device-filter" value="date" checked />Date
+    <input type="radio" name="device-filter" value="name" />Name
+    <input type="radio" name="device-filter" value="owner" />Owner
 </div>
+<ul id="device-list">
+{% for device in devices %}
+    <li>
+        <div class="device">
+            <div class="image"><img src="/media/{{ device.image }}" /></div>
+            <div class="name">{{ device }}</div>
+            <div class="info">
+                <span class="os">{{ device.os }}</span>
+                {{ device.version }}
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+<div class="clearfix"></div>
 {% endblock %}
 <!-- /CONTENT -->

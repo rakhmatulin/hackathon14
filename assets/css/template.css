@@ -1,39 +1,86 @@
 body {
-            padding-top: 20px;
-            padding-bottom: 40px;
-        }
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
 
-        /* Custom container */
-        .container-narrow {
-            margin: 0 auto;
-            max-width: 700px;
-        }
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    width: 960px;
+}
 
-        .container-narrow > hr {
-            margin: 30px 0;
-        }
+.container-narrow > hr {
+    margin: 30px 0;
+}
 
-        /* Main marketing message and sign up button */
-        .jumbotron {
-            margin: 60px 0;
-            text-align: center;
-        }
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
 
-        .jumbotron h1 {
-            font-size: 72px;
-            line-height: 1;
-        }
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
 
-        .jumbotron .btn {
-            font-size: 21px;
-            padding: 14px 24px;
-        }
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
 
-        /* Supporting marketing content */
-        .marketing {
-            margin: 60px 0;
-        }
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+}
 
-        .marketing p + h4 {
-            margin-top: 28px;
-        }
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+#device-list li {
+    display: inline;
+    list-style: none;
+}
+
+.device {
+    float: left;
+    width: 150px;
+    margin: 0 15px 25px 15px;
+    text-align: center;
+}
+
+.device .image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.device .image img {
+    width: 120px;
+}
+
+.device .name {
+    padding: 4px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+.device .info {
+    padding: 2px 0;
+}
+
+.device .info .os {
+    text-transform: capitalize;
+}
+
+#device-filter {
+    padding-bottom: 40px;
+    font-size: 18px;
+}
+
+#device-filter input {
+    margin: 0 4px;
+    position: relative;
+    top: -1px;
+}

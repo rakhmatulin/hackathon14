@@ -23,7 +23,7 @@ class EmployersFilterForm(forms.Form):
         (3, 'Count')
     )
 
-    device_filter = forms.TypedChoiceField(
+    employer_filter = forms.TypedChoiceField(
         choices=FILTER_CHOICE, widget=forms.RadioSelect(),
         initial=FILTER_CHOICE[0][0], coerce=int,
         empty_value=FILTER_CHOICE[0][0])

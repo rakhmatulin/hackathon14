@@ -29,12 +29,12 @@
         {% else %}
             <div class="device">
                 <div class="image">
-                    <a href="/device/{{ device.pk }}">
-                        <img src="/media/{{ device.image }}" />
+                    <a href="{% url 'single_device_view' device.pk %}">
+                        <img src="{{ device.image.url }}" />
                     </a>
                 </div>
                 <div class="name">
-                    <a href="/device/{{ device.pk }}">
+                    <a href="{% url 'single_device_view' device.pk %}">
                         {{ device }}
                     </a>
                 </div>
@@ -44,8 +44,8 @@
                 </div>
                 <div class="owner img-circle">
                     {% if device.employer %}
-                        <a href="/employer/{{ device.employer.id }}">
-                            <img src="{{ device.employer.image }}" class="img-circle" />
+                        <a href="{% url 'single_employe_view' device.employer.id %}">
+                            <img src="{{ device.employer.image.url }}" class="img-circle" />
                         </a>
                     {% endif %}
                 </div>

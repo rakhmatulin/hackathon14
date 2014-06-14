@@ -15,8 +15,16 @@
     {% else %}
         <li>
             <div class="employer">
-                <div class="image"><img src="/media/{{ employer.image }}" /></div>
-                <div class="name">{{ employer.first_name_eng }} {{ employer.last_name_eng }}</div>
+                <div class="image">
+                    <a href="/employer/{{ employer.pk }}">
+                        <img src="/media/{{ employer.image }}" />
+                    </a>
+                </div>
+                <div class="name">
+                    <a href="/employer/{{ employer.pk }}">
+                        {{ employer.first_name_eng }} {{ employer.last_name_eng }}
+                    </a>
+                </div>
             </div>
         </li>
     {% endif %}

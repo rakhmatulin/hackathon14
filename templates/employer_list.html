@@ -2,11 +2,30 @@
 
 <!-- CONTENT -->
 {% block content %}
-<div id="device-filter">
+<div id="employer-filter">
     Sort by:
-    <input type="radio" name="device-filter" value="date" checked />Date
-    <input type="radio" name="device-filter" value="name" />Name
-    <input type="radio" name="device-filter" value="owner" />Owner
+    <form action="" class="filter-form">
+        <ul>
+            <li>
+                <label>
+                    <input type="radio" name="device-filter" value="date" checked />
+                    Date
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="device-filter" value="name" />
+                    Name
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="radio" name="device-filter" value="owner" />
+                    Owner
+                </label>
+            </li>
+        </ul>
+    </form>
 </div>
 <ul id="employer-list">
 {% for employer in employers %}

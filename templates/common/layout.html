@@ -25,25 +25,38 @@
 <div class="container-narrow">
 
     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-            <li><a href="/">Home</a></li>
-            <li><a href="/employers">Employers</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
-        <div class="logo">
+        <div class="logo pull-left">
             <a href="/">
                 <img src="{% static 'img/logo.png' %}">
             </a>
         </div>
+        <div class="pull-right">
+            <ul class="nav nav-pills">
+                <li><a href="/">Home</a></li>
+                <li><a href="/employers">Employers</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+            <div id="device-search">
+                <form action="/search" class="search">
+                    <input type="text" name="query" class="form-control" placeholder="Type device name or sku..." value="{{query}}">
+                    <input type="submit" class="btn" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
     </div>
 
     <hr>
+
+    <div class="clearfix"></div>
 
     <div id="content" class="wrapper">
         {% block content %}{% endblock %}
     </div>
 
     <hr>
+
+    <div class="clearfix"></div>
 
     <div class="footer">
         <p>Team <span class="bold">"Reset --hard"</span> &copy; 2014</p>

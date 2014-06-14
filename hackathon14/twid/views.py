@@ -10,7 +10,9 @@ def device_single(request, device_id):
     device = Device.objects.get(id=device_id)
     update_requests = DeviceUpdateRequest.objects.filter(device=device)
     history = History.objects.filter(device=device).order_by('-date')
-    owner = history[0].employer
+    owner = False
+    if len(history):
+        owner = history[0].employer
 
     context = {
         'device': device,
@@ -23,8 +25,10 @@ def device_single(request, device_id):
 
 def employer_single(request, employer_id):
     employer = Employer.objects.get(id=employer_id)
+    devices = employer.get_devices()
     context = {
-        'employer': employer
+        'employer': employer,
+        'devices': devices
     }
     return render_to_response('twid/employer_single.html', context)
 

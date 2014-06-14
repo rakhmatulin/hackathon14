@@ -86,6 +86,9 @@ class DeviceUpdateRequest(models.Model):
     device = models.ForeignKey(Device)
     date = models.DateTimeField(auto_now_add=True)
     request_message = models.TextField(null=False, blank=False)
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+
 
     def __unicode__(self):
-        return u'%s' % (self.request_message, self.device.sku,)
+        return u'%s %s' % (self.request_message, self.device.sku,)

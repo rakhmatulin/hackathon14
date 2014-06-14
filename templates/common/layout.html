@@ -34,8 +34,8 @@
         <div class="pull-right">
             <ul class="nav nav-pills">
                 <li><a href="/">Home</a></li>
-                <li><a href="/employers">Employers</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="{% url 'employer_list' %}">Employers</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
             </ul>
             <div id="device-search">
                 <form action="/search" class="search">

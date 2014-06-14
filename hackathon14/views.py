@@ -6,7 +6,7 @@ from twid.models import Device, Employer
 from django.db.models import Q
 
 
-EMPLOYER_PAGINATOR_COUNT = 30
+PAGINATOR_COUNT = 30
 
 
 def index(request):
@@ -24,6 +24,16 @@ def index(request):
     }
     order_param = order_params[device_filter]
     devices = Device.objects.select_related('employer').order_by(order_param)
+    page = data.get('page')
+    paginator = Paginator(devices, PAGINATOR_COUNT)
+    try:
+        devices = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        devices = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        devices = paginator.page(paginator.num_pages)
     devices_by_room = Device.get_devices_by_room(False)
     return render_to_response('index.html', locals())
 
@@ -60,7 +70,7 @@ def employer_list(request):
     all_employers = Employer.objects.\
         annotate(count=Count('device')).order_by(order_param)
     page = data.get('page')
-    paginator = Paginator(all_employers, EMPLOYER_PAGINATOR_COUNT)
+    paginator = Paginator(all_employers, PAGINATOR_COUNT)
     try:
         employers = paginator.page(page)
     except PageNotAnInteger:

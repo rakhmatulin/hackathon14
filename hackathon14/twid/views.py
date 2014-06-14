@@ -1,15 +1,17 @@
 from django.shortcuts import render_to_response
-from hackathon14.twid.models import Device, Employer, History
+from hackathon14.twid.models import Device, Employer, History, DeviceUpdateRequest
 from hackathon14.utils.get_employers import json_response
 
 
 def device_single(request, device_id):
     device = Device.objects.get(id=device_id)
     history = History.objects.filter(device=device)
+    update_requests = DeviceUpdateRequest.objects.filter(device=device)
 
     context = {
         'device': device,
         'history': history,
+        'update_requests': update_requests,
     }
     return render_to_response('twid/device_single.html', context)
 

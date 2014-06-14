@@ -16,6 +16,8 @@ class Employer(models.Model):
     room = models.PositiveIntegerField(default=0)
     email = models.EmailField()
 
+    def __unicode__(self):
+        return u'%s %s' % self.first_name, self.last_name
 
 class Device(models.Model):
     sku = models.CharField(max_length=50, blank=True)
@@ -24,3 +26,6 @@ class Device(models.Model):
     version = models.CharField(max_length=50, blank=True)
     mac = models.CharField(max_length=50, blank=True)
     image = models.ImageField(max_length=255, null=True, blank=True, upload_to='device')
+
+    def __unicode__(self):
+        return u'%s' % self.model

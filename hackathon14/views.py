@@ -24,7 +24,7 @@ def index(request):
     }
     order_param = order_params[device_filter]
     devices = Device.objects.select_related('employer').order_by(order_param)
-    devices_by_room = Device.get_devices_by_room()
+    devices_by_room = Device.get_devices_by_room(False)
     return render_to_response('index.html', locals())
 
 
@@ -35,7 +35,7 @@ def search(request):
             Q(sku__icontains=query) |
             Q(model__icontains=query)).\
         order_by('-date_action')
-    devices_by_room = Device.get_devices_by_room()
+    devices_by_room = Device.get_devices_by_room(query)
     return render_to_response('search.html', locals())
 
 

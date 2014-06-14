@@ -79,9 +79,16 @@ class Device(models.Model):
         return query[:limit]
 
     @classmethod
-    def get_devices_by_room(cls):
-        devices = Device.objects.filter(employer__isnull=False).\
-            select_related('employer')
+    def get_devices_by_room(cls, query):
+        if query:
+            devices = Device.objects.filter(
+                Q(employer__isnull=False) &
+                (Q(sku__icontains=query) |
+                 Q(model__icontains=query))).\
+                select_related('employer')
+        else:
+            devices = Device.objects.filter(employer__isnull=False).\
+                select_related('employer')
         dt = defaultdict(list)
         for device in devices:
             dt[device.employer.room].append(device)

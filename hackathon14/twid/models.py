@@ -8,7 +8,10 @@ from django.utils.datetime_safe import datetime
 
 
 class EmployerManager(models.Manager):
-    pass
+
+    def get_queryset(self):
+        return super(EmployerManager, self).get_queryset().\
+            filter(room__gte=500, room__lt=600)
 
 
 class Employer(models.Model):
@@ -23,7 +26,7 @@ class Employer(models.Model):
     skype = models.CharField(max_length=200, default='', null=True, blank=True)
     phone = models.CharField(max_length=200, default='', null=True, blank=True)
     image = models.ImageField(upload_to='employer', null=True, blank=True)
-    room = models.CharField(max_length=200)
+    room = models.PositiveIntegerField()
     email = models.EmailField()
     date_action = models.DateTimeField(blank=True, null=True)
 

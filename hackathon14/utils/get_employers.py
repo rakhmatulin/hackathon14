@@ -2,6 +2,7 @@
 import json
 import re
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.http import HttpResponse
 from django.utils.datetime_safe import datetime
 import requests
 import logging
@@ -102,3 +103,8 @@ class SmgApi(object):
         logger.info("Got employers list")
         for employer in employers:
             self.process_employer(employer['ProfileId'])
+
+
+def json_response(data, status=200):
+    return HttpResponse(
+        json.dumps(data), content_type="application/json", status=status)

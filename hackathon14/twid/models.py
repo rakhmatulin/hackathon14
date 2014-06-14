@@ -31,3 +31,12 @@ class Device(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.model
+
+
+class History(models.Model):
+    employer = models.ForeignKey(Employer)
+    device = models.ForeignKey(Device)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return u'%s' % self.model

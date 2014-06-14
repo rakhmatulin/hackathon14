@@ -7,8 +7,8 @@
             <img src="/media/{{ device.image }}" class="img-rounded">
             <img id="device-owner-img" src="http://cs608927.vk.me/v608927727/921e/FvAcJ4pdeeI.jpg" class="img-circle">
         </div>
-        <div class="span5">
-            <h2>{{ device.sku }}</h2>
+        <div class="span4">
+            <h3>{{ device.sku }}</h3>
             <table class="table table-hover">
                 <tr>
                     <td>model</td>
@@ -26,6 +26,17 @@
                     <td>mac</td>
                     <td>{{ device.mac }}</td>
                 </tr>
+            </table>
+        </div>
+        <div class="span3">
+            <h3>История</h3>
+            <table class="table table-hover">
+                {% for emp in history %}
+                    <tr>
+                        <td><img src="/media/{{ emp.employer.image }}" class="img-rounded small-history"></td>
+                        <td>{{ emp.employer.first_name }} {{ emp.employer.last_name }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     </div>

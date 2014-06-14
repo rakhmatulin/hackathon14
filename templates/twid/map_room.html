@@ -1,0 +1,12 @@
+{{ room_number }}
+{% if devices %}
+    <ul>
+        {% for device in devices %}
+            <li>
+                {{ device }}
+                {{ device.image.url }}
+                {{ device.get_absolute_url }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -52,7 +52,7 @@ def vote_for_update(request, request_id, vote):
         if int(vote) == 1:
             update_request.likes += 1
         elif int(vote) == 0:
-            update_request.likes -= 1
+            update_request.dislikes += 1
         update_request.save()
     except Exception:
         return json_error_response(

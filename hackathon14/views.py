@@ -46,11 +46,11 @@ def about(request):
 def employer_list(request):
     employer_filter = EmployersFilterForm.FILTER_CHOICE[0][0]
     data = request.GET.copy()
-    if not 'device_filter' in data:
-        data['device_filter'] = employer_filter
+    if not 'employer_filter' in data:
+        data['employer_filter'] = employer_filter
     form = EmployersFilterForm(data)
     if form.is_valid():
-        device_filter = form.cleaned_data['device_filter']
+        employer_filter = form.cleaned_data['employer_filter']
     order_params = {
         1: '-date_action',
         2: 'last_name_eng',

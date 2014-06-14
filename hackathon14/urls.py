@@ -1,14 +1,13 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
-<<<<<<< HEAD
+
 from hackathon14.twid.views import device_single
 import hackathon14
 
-=======
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
->>>>>>> f093fc030827d71dca00b6238271ebede8f3a6d7
+
 admin.autodiscover()
 
 urlpatterns = patterns('',

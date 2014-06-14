@@ -57,7 +57,7 @@
                                         <img src="/media/{{ request.employer.image }}" class="img-circle"
                                              style="height: 80px;width: 80px;">
                                     </div>
-W                                    <div class="span7">
+                                    <div class="span7">
                                         <div>
                                             <div class="mic-info">
                                                 {{ request.employer.first_name }} {{ request.employer.last_name }}
@@ -67,10 +67,9 @@ W                                    <div class="span7">
                                         <div class="comment-text">
                                             {{ request.request_message }}
                                         </div>
-                                        <div class="action" id="requst-id-{{ request.id }}">
-                                            <button id="plus" class="btn" type="button">+ {{ request.likes }}</button>
-                                            <button id="minus" class="btn btn-danger" type="button">
-                                                - {{ request.likes }}</button>
+                                        <div class="action" id="{{ request.id }}">
+                                            <button class="btn plus" type="button"> {{ request.likes }}</button>
+                                            <button class="btn btn-danger minus" type="button">{{ request.dislikes }}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -86,24 +85,33 @@ W                                    <div class="span7">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-            $('#plus').click(function () {
-                $.ajax({
-                    type: 'get',
-                    success: function () {
-                        console.log(111);
-                    },
-                    url: '/vote_for_update/{{ request.pk }}1/'
-                });
+
+     $('.plus').bind('click', function(){
+        var update_id = $(this).parent().attr('id');
+        var self = $(this);
+        $.ajax({
+                type: 'get',
+                success: function () {
+                    console.log(self.text(parseInt(self.text()) + 1) );
+
+                },
+                url: '/vote_for_update/'+update_id+'/1/'
             });
-            $('#minus').click(function () {
-                $.ajax({
-                    type: 'get',
-                    success: function () {
-                    console.log(-111);
-                    },
-                    url: '/vote_for_update/{{ request.pk }}0/'
-                });
+     });
+
+     $('.minus').bind('click', function(){
+        var update_id = $(this).parent().attr('id');
+        var self = $(this);
+        $.ajax({
+                type: 'get',
+                success: function () {
+                    console.log(self.text(parseInt(self.text()) + 1) );
+
+                },
+                url: '/vote_for_update/'+update_id+'/0/'
             });
+     });
+
     </script>
 
 {% endblock %}

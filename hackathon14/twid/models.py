@@ -4,10 +4,14 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db.models import Q
+from django.utils.datetime_safe import datetime
 
 
 class EmployerManager(models.Manager):
-    pass
+
+    def get_queryset(self):
+        return super(EmployerManager, self).get_queryset().\
+            filter(room__gte=500, room__lt=600)
 
 
 class Employer(models.Model):
@@ -22,8 +26,9 @@ class Employer(models.Model):
     skype = models.CharField(max_length=200, default='', null=True, blank=True)
     phone = models.CharField(max_length=200, default='', null=True, blank=True)
     image = models.ImageField(upload_to='employer', null=True, blank=True)
-    room = models.CharField(max_length=200)
+    room = models.PositiveIntegerField()
     email = models.EmailField()
+    date_action = models.DateTimeField(blank=True, null=True)
 
     objects = EmployerManager()
 
@@ -51,6 +56,7 @@ class Device(models.Model):
     image = models.ImageField(max_length=255, null=True, blank=True, upload_to='device')
     status = models.BooleanField(default=False)
     employer = models.ForeignKey(Employer, blank=True, null=True)
+    date_action = models.DateTimeField(blank=True, null=True)
 
     objects = DeviceManager()
 
@@ -73,9 +79,16 @@ class Device(models.Model):
         return query[:limit]
 
     @classmethod
-    def get_devices_by_room(cls):
-        devices = Device.objects.filter(employer__isnull=False).\
-            select_related('employer')
+    def get_devices_by_room(cls, query):
+        if query:
+            devices = Device.objects.filter(
+                Q(employer__isnull=False) &
+                (Q(sku__icontains=query) |
+                 Q(model__icontains=query))).\
+                select_related('employer')
+        else:
+            devices = Device.objects.filter(employer__isnull=False).\
+                select_related('employer')
         dt = defaultdict(list)
         for device in devices:
             dt[device.employer.room].append(device)
@@ -117,14 +130,18 @@ class DeviceUpdateRequest(models.Model):
             self.approved = False
         super(DeviceUpdateRequest, self).save(*args, **kwargs)
 
+
 @receiver(pre_save, sender=Device)
 def add_history(sender, **kwargs):
     instance = kwargs.get('instance')
     if not instance or not instance.id:
         return
     if instance.employer:
-        device = Device.objects.filter(id=instance.id).first()
+        device = Device.objects.get(id=instance.id)
         old_employer = device.employer
         if instance.employer != old_employer:
             History.objects.create(employer=instance.employer, device=instance)
+            instance.date_action = datetime.now()
+            instance.employer.date_action = datetime.now()
+            instance.employer.save()
 

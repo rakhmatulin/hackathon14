@@ -1,0 +1,56 @@
+{% extends 'common/layout.html' %}
+
+<!-- CONTENT -->
+<div class="clearfix"></div>
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li> &raquo; </li>
+  <li class="active">Search</li>
+</ol>
+<div id="device-view" class="pull-right">
+    <a id="device-list-view" href="#list" class="active">List</a>
+    /
+    <a id="device-map-view" href="#map">Map</a>
+</div>
+<div class="clearfix"></div>
+
+<div id="device-list">
+{% for device in devices %}
+    <div class="device">
+        <div class="image">
+            <a href="{% url 'single_device_view' device.pk %}">
+                <img src="{{ device.image.url }}" />
+            </a>
+        </div>
+        <div class="name">
+            <a href="{% url 'single_device_view' device.pk %}">
+                {{ device }}
+            </a>
+        </div>
+        <div class="info">
+            <span class="os">{{ device.os }}</span>
+            {{ device.version }}
+        </div>
+        <div class="owner img-circle">
+            {% if device.employer %}
+                <a href="{% url 'single_employe_view' device.employer.id %}">
+                    <img src="{{ device.employer.image.url }}" class="img-circle" />
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:5 %}
+        <div class="clearfix"></div>
+    {% endif %}
+{% empty %}
+    <h2>There are no devices found</h2>
+{% endfor %}
+</div>
+
+{% include "map.html" %}
+
+<div class="clearfix"></div>
+{% endblock %}
+<!-- /CONTENT -->

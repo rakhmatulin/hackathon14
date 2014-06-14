@@ -51,16 +51,18 @@
 
 <div class="pagination">
     {% if employers.has_previous %}
-        <a href="{% url 'employer_list' %}{% url_replace request 'page' employers.next_page_number %}" class="pull-left">&laquo; Previous</a>
+        <a href="{% url 'employer_list' %}{% url_replace request 'page' employers.previous_page_number %}" class="pull-left">&laquo; Previous</a>
     {% endif %}
 
     {% if employers.has_next %}
         <a href="{% url 'employer_list' %}{% url_replace request 'page' employers.next_page_number %}" class="pull-right">Next &raquo;</a>
     {% endif %}
 
-    <span class="current">
-        Page {{ employers.number }} of {{ employers.paginator.num_pages }}
-    </span>
+    {% if employers.paginator.num_pages > 1 %}
+        <span class="current">
+            Page {{ employers.number }} of {{ employers.paginator.num_pages }}
+        </span>
+    {% endif %}
 </div>
 {% endblock %}
 <!-- /CONTENT -->

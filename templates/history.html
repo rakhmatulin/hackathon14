@@ -1,0 +1,88 @@
+{% extends 'common/layout.html' %}
+
+{% load twid %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div id="history-list">
+        {% if history %}
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th width="25%">From</th>
+                        <th width="25%">To</th>
+                        <th width="25%">Device</th>
+                        <th width="25%">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for history_item in history %}
+                    <tr>
+                        <td class="employer" style="float: none;">
+                            {% if history_item.old_employer %}
+                                <div class="image">
+                                    <a href="{{ history_item.old_employer.get_absolute_url }}">
+                                        <img src="{{ history_item.old_employer.image.url }}"/>
+                                    </a>
+                                </div>
+                                <div class="name">
+                                    <a href="{{ history_item.old_employer.get_absolute_url }}">
+                                        {{ history_item.old_employer.last_name_eng }} {{ history_item.old_employer.first_name_eng }}
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="icon-user"></div>
+                            {% endif %}
+                        </td>
+                        <td class="employer" style="float: none;">
+                            <div class="image">
+                                <a href="{{ history_item.employer.get_absolute_url }}">
+                                    <img src="{{ history_item.employer.image.url }}" />
+                                </a>
+                            </div>
+                            <div class="name">
+                                <a href="{{ history_item.employer.get_absolute_url }}">
+                                    {{ history_item.employer.last_name_eng }} {{ history_item.employer.first_name_eng }}
+                                </a>
+                            </div>
+                        </td>
+                        <td class="device" style="float: none;">
+                            <div class="image">
+                                <a href="{{ history_item.device.get_absolute_url }}">
+                                    <img src="{{ history_item.device.image.url }}" />
+                                </a>
+                            </div>
+                            <div class="name">
+                                <a href="{{ history_item.device.get_absolute_url }}">
+                                    {{ history_item.device }}
+                                </a>
+                            </div>
+                        </td>
+                        <td class="date">
+                            {{ history_item.date }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="pagination">
+        {% if history.has_previous %}
+            <a href="{% url 'history_list' %}{% url_replace request 'page' history.previous_page_number %}" class="pull-left">&laquo; Previous</a>
+        {% endif %}
+
+        {% if history.has_next %}
+            <a href="{% url 'history_list' %}{% url_replace request 'page' history.next_page_number %}" class="pull-right">Next &raquo;</a>
+        {% endif %}
+
+        {% if history.paginator.num_pages > 1 %}
+            <span class="current">
+            Page {{ history.number }} of {{ history.paginator.num_pages }}
+        </span>
+        {% endif %}
+    </div>
+{% endblock %}
+<!-- /CONTENT -->

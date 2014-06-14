@@ -4,10 +4,19 @@ from hackathon14.utils.get_employers import json_response
 
 
 def device_single(request, device_id):
+    device = Device.objects.get(id=device_id)
     context = {
-        'device_id': device_id
+        'device': device
     }
     return render_to_response('twid/device_single.html', context)
+
+
+def employe_single(request, employe_id):
+
+    context = {
+        'employe_id': employe_id
+    }
+    return render_to_response('twid/employe_single.html', context)
 
 
 def assign_device(request, device_id):

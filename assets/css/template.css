@@ -38,30 +38,35 @@ body {
     margin-top: 28px;
 }
 
-#device-list li {
+#device-list li,
+#employer-list li {
     display: inline;
     list-style: none;
 }
 
-.device {
+.device,
+.employer {
     float: left;
     width: 150px;
     margin: 0 15px 25px 15px;
     text-align: center;
 }
 
-.device .image {
+.device .image,
+.employer .image {
     width: 120px;
     height: 120px;
     margin: 0 auto;
     overflow: hidden;
 }
 
-.device .image img {
+.device .image img,
+.employer .image img {
     width: 120px;
 }
 
-.device .name {
+.device .name,
+.employer .name {
     padding: 4px 0;
     font-size: 16px;
     font-weight: bold;

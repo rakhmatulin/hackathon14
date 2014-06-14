@@ -1,13 +1,23 @@
 {% extends 'common/layout.html' %}
 
 <!-- CONTENT -->
+<div class="clearfix"></div>
+
 {% block content %}
-<div id="device-filter" class="panel panel-default">
+<div id="device-filter" class="pull-left">
     Sort by:
     <input type="radio" name="device-filter" value="date" checked />Date
     <input type="radio" name="device-filter" value="name" />Name
     <input type="radio" name="device-filter" value="owner" />Owner
 </div>
+
+<div id="device-view" class="pull-right">
+    <a id="device-list-view" href="#list" class="active">List</a>
+    /
+    <a id="device-map-view" href="#map">Map</a>
+</div>
+<div class="clearfix"></div>
+
 <ul id="device-list">
 {% for device in devices %}
     <li>
@@ -41,6 +51,9 @@
     </li>
 {% endfor %}
 </ul>
+
+{% include "map.html" %}
+
 <div class="clearfix"></div>
 {% endblock %}
 <!-- /CONTENT -->

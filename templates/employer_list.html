@@ -1,5 +1,7 @@
 {% extends 'common/layout.html' %}
 
+{% load twid %}
+
 {% block js %}
     {{ block.super }}
     <script>
@@ -49,11 +51,11 @@
 
 <div class="pagination">
     {% if employers.has_previous %}
-        <a href="{% url 'employer_list' %}?page={{ contacts.previous_page_number }}" class="pull-left">&laquo; Previous</a>
+        <a href="{% url 'employer_list' %}{% url_replace request 'page' employers.next_page_number %}" class="pull-left">&laquo; Previous</a>
     {% endif %}
 
     {% if employers.has_next %}
-        <a href="{% url 'employer_list' %}?page={{ employers.next_page_number }}" class="pull-right">Next &raquo;</a>
+        <a href="{% url 'employer_list' %}{% url_replace request 'page' employers.next_page_number %}" class="pull-right">Next &raquo;</a>
     {% endif %}
 
     <span class="current">

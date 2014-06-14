@@ -74,3 +74,13 @@ class History(models.Model):
 
     def __unicode__(self):
         return u'%s' % (self.device.sku, self.employer.last_name,)
+
+
+class DeviceUpdateRequest(models.Model):
+    employer = models.ForeignKey(Employer)
+    device = models.ForeignKey(Device)
+    date = models.DateTimeField(auto_now_add=True)
+    request_message = models.TextField(null=False, blank=False)
+
+    def __unicode__(self):
+        return u'%s' % (self.request_message, self.device.sku,)

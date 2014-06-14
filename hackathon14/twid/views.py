@@ -55,8 +55,5 @@ def vote_for_update(request, request_id, vote):
             update_request.dislikes += 1
         update_request.save()
     except Exception:
-        return json_error_response(
-                'Something strange happend.',
-                status=400
-        )
+        return json_error_response('Something strange happend.', status=400)
     return json_success_response('Voted!')

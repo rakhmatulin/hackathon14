@@ -20,10 +20,22 @@ def index(request):
     order_params = {
         1: '-date_action',
         2: 'model',
-        3: 'employer__last_name_eng',
+        3: 'employer',
+    }
+    order_extra_params = {
+        1: 'date_action',
+        3: 'employer_id',
     }
     order_param = order_params[device_filter]
-    devices = Device.objects.select_related('employer').order_by(order_param)
+    devices = Device.objects.select_related('employer')
+    if device_filter in (1, 3):
+        order_extra_param = order_extra_params[device_filter]
+        devices = devices.extra(select={
+            'null_values': 'CASE WHEN %s.%s IS NULL THEN 0 ELSE 1 END' %
+            (Device._meta.db_table, order_extra_param)}
+        ).order_by('-null_values', order_param)
+    else:
+        devices = devices.order_by(order_param)
     page = data.get('page')
     paginator = Paginator(devices, PAGINATOR_COUNT)
     try:
@@ -67,10 +79,17 @@ def employer_list(request):
         3: '-count',
     }
     order_param = order_params[employer_filter]
-    all_employers = Employer.objects.\
-        annotate(count=Count('device')).order_by(order_param)
+    employers = Employer.objects.annotate(count=Count('device'))
+    if employer_filter == 1:
+        order_extra_param = 'date_action'
+        employers = employers.extra(select={
+            'null_values': 'CASE WHEN %s.%s IS NULL THEN 0 ELSE 1 END' %
+            (Employer._meta.db_table, order_extra_param)}
+        ).order_by('-null_values', order_param)
+    else:
+        employers = employers.order_by(order_param)
     page = data.get('page')
-    paginator = Paginator(all_employers, PAGINATOR_COUNT)
+    paginator = Paginator(employers, PAGINATOR_COUNT)
     try:
         employers = paginator.page(page)
     except PageNotAnInteger:

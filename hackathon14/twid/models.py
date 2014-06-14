@@ -1,5 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.db.models import Q
 
 
@@ -30,9 +32,6 @@ class Employer(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name,)
 
-        return u'%s %s' % (self.first_name, self.last_name)
-
-
 
 class DeviceManager(models.Manager):
     pass
@@ -55,10 +54,10 @@ class Device(models.Model):
 
     def assign(self, employer):
         if self.employer is not None and self.employer == employer:
-            return
+            return False
         self.employer = employer
         self.save()
-        return History.objects.create(employer=employer, deviice=self)
+        return True
 
     def employer_autocomplete(self, name, limit=10):
         query = Employer.objects.filter(
@@ -76,9 +75,10 @@ class History(models.Model):
     employer = models.ForeignKey(Employer)
     device = models.ForeignKey(Device)
     date = models.DateTimeField(auto_now_add=True)
+    date.editable = True
 
     def __unicode__(self):
-        return u'%s' % (self.device.sku, self.employer.last_name,)
+        return u'%s %s' % (self.device.sku, self.employer.last_name,)
 
 
 class DeviceUpdateRequest(models.Model):
@@ -92,3 +92,16 @@ class DeviceUpdateRequest(models.Model):
 
     def __unicode__(self):
         return u'%s %s' % (self.request_message, self.device.sku,)
+
+
+@receiver(pre_save, sender=Device)
+def add_history(sender, **kwargs):
+    instance = kwargs.get('instance')
+    if not instance or not instance.id:
+        return
+    if instance.employer:
+        device = Device.objects.filter(id=instance.id).first()
+        old_employer = device.employer
+        if instance.employer != old_employer:
+            History.objects.create(employer=instance.employer, device=instance)
+

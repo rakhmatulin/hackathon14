@@ -132,6 +132,10 @@ class DeviceUpdateRequest(models.Model):
         super(DeviceUpdateRequest, self).save(*args, **kwargs)
 
 
+class DeviceUpdateEmployer(models.Model):
+    update_request = models.ForeignKey(DeviceUpdateRequest)
+    employer = models.ForeignKey(Employer)
+
 @receiver(pre_save, sender=Device)
 def add_history(sender, **kwargs):
     instance = kwargs.get('instance')

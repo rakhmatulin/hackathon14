@@ -38,7 +38,7 @@ def device_single(request, device_id):
     if device.employer_id:
         employers = employers.exclude(id=device.employer_id)
     for developer in employers:
-        names[developer.id] = developer.first_name + " " + developer.last_name
+        names[developer.id] = developer.first_name_eng + " " + developer.last_name_eng
     owner = False
     if len(history):
         owner = history[0].employer

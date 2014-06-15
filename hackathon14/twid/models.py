@@ -5,6 +5,7 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.db.models import Q
 from django.utils.datetime_safe import datetime
+from django.contrib.auth.models import User
 
 
 class EmployerManager(models.Manager):
@@ -17,6 +18,7 @@ class EmployerManager(models.Manager):
 class Employer(models.Model):
 
     profile_id = models.PositiveIntegerField()
+    user_id = models.ForeignKey(User, null=True, related_name='employer')
     dept_id = models.PositiveIntegerField()
     first_name_eng = models.CharField(max_length=200)
     last_name_eng = models.CharField(max_length=200)

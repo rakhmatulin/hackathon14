@@ -1,4 +1,13 @@
+
 from django.shortcuts import render
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render_to_response
+from datetime import datetime
+
+from hackathon14.twid.forms import UpdateRequestForm
+from django.template import RequestContext
+
 
 from hackathon14.twid.models import DeviceUpdateRequest
 from hackathon14.twid.models import Device, Employer, History
@@ -7,6 +16,18 @@ from hackathon14.utils.get_employers import json_error_response, \
 
 
 def device_single(request, device_id):
+    employer = Employer.objects.filter(user_id=request.user)[0]
+    if request.method == "POST":
+        form = UpdateRequestForm(request.POST)
+        if form.is_valid():
+            update_request = DeviceUpdateRequest()
+            update_request.date = datetime.now()
+            update_request.request_message = request.POST.get('request_message')
+            update_request.employer = employer
+            update_request.device = Device.objects.get(id=device_id)
+            update_request.save()
+    else:
+        form = UpdateRequestForm()
     device = Device.objects.get(id=device_id)
     update_requests = DeviceUpdateRequest.objects.filter(device=device)
     history = History.objects.filter(device=device).order_by('-date')
@@ -22,8 +43,11 @@ def device_single(request, device_id):
         'update_requests': update_requests,
         'owner': owner,
         'names': names,
+        'form': form,
     }
-    return render(request, 'twid/device_single.html', context)
+
+    return render_to_response('twid/device_single.html', context, RequestContext(request))
+
 
 
 def employer_single(request, employer_id):

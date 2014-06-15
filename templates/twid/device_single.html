@@ -12,12 +12,6 @@
             <img src="/media/{{ device.image }}" class="img-rounded">
             <img id="device-owner-img" src="/media/{{ owner.image }}" class="img-circle">
 
-            <form>
-                {% csrf_token %}
-                <label for="developer">Developer: </label>
-                <input id="developer" type="text" class="input-medium">
-                <button id="give-device-button" class="btn btn-primary" type="button">Передать девайс</button>
-            </form>
             <div class="hidden">
                 <div id="names">
                     {% for id, name in names.items %}
@@ -52,6 +46,7 @@
                 <div class="span3">
                     <h3>History</h3>
                     <table class="table table-hover">
+
                         {% for emp in history %}
                             <tr>
                                 <td><img src="/media/{{ emp.employer.image }}" class="img-rounded small-history"></td>
@@ -59,11 +54,26 @@
                             </tr>
                         {% endfor %}
                     </table>
+                    <form>
+                        {% csrf_token %}
+                        <button id="give-device-button" class="btn btn-primary" type="button"><i class="icon-arrow-right icon-white"></i>Push It</button>
+                        <input id="developer" type="text" class="input-medium">
+                    </form>
                 </div>
             </div>
             <div class="row">
                 <div class="span7">
-                    <h3>Update requests:</h3>
+
+                <h3>Submit One More:</h3>
+                    <form action="{% url 'single_device_view' device.id %}" method="POST">
+                        <fieldset>
+                            {% csrf_token %}
+                            <textarea name="request_message" rows="3" style="width: 100%"></textarea>
+                            <input type="hidden" name="device" value="{{ device.id }}">
+                            <button type="submit" class="btn btn-info">Submit Request</button>
+                        </fieldset>
+                    </form>
+                <h3>Update requests:</h3>
                     <ul class="list" style="list-style-type: none;">
                         {% for request in update_requests %}
                             <li class="list-group-item">
@@ -90,7 +100,6 @@
                                     </div>
                                 </div>
                             </li>
-
                         {% endfor %}
                     </ul>
                 </div>
@@ -210,7 +219,7 @@
         $('#give-device-button').bind('click', function () {
             names.indexOf($('#developer').val());
             $.post(
-                    '/device/assign/' + {{ device.id }} +'/',
+                            '/device/assign/' + {{ device.id }} +'/',
                     {
                         'employer_id': ids[names.indexOf($('#developer').val())],
                         'csrfmiddlewaretoken': csrftoken

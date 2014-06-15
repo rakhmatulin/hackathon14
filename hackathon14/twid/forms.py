@@ -27,3 +27,8 @@ class EmployersFilterForm(forms.Form):
         choices=FILTER_CHOICE, widget=forms.RadioSelect(),
         initial=FILTER_CHOICE[0][0], coerce=int,
         empty_value=FILTER_CHOICE[0][0])
+
+
+class UpdateRequestForm(forms.Form):
+    request_message = forms.Textarea()
+    device = forms.IntegerField()

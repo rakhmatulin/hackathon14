@@ -13,5 +13,5 @@ class Command(NoArgsCommand):
     help = 'Update employers'
 
     def handle(self, *args, **options):
-        api = SmgApi('ihar.niamilentsau', 'Logi9tech!')
+        api = SmgApi('xxxx', 'xxxx')
         api.start()

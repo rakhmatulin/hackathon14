@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="span7">
+        <div class="span7 device-block">
             <div class="row">
                 <div class="span4">
                     <h3>{{ device }} ({{ device.sku }})</h3>
@@ -57,14 +57,14 @@
                     {% if request.user.is_authenticated %}
                     <form>
                         {% csrf_token %}
-                        <button id="give-device-button" class="btn btn-primary" type="button"><i class="icon-arrow-right icon-white"></i>Push It</button>
+                        <button id="give-device-button" class="btn btn-primary" type="button"><i class="icon-arrow-right icon-white"></i>Twid It</button>
                         <input id="developer" type="text" class="input-medium">
                     </form>
                     {% endif %}
                 </div>
             </div>
             <div class="row">
-                <div class="span7">
+                <div class="span6">
 
                 <h3>Submit One More:</h3>
                     <form action="{% url 'single_device_view' device.id %}" method="POST">

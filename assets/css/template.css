@@ -10,6 +10,18 @@ a:hover {
     color: #660000;
 }
 
+.btn {
+    color: white;
+    background: #eb3614;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.btn:hover {
+    color: white;
+    background: #660000;
+}
+
 /* Custom container */
 .container-narrow {
     margin: 0 auto;
@@ -46,16 +58,17 @@ a:hover {
 }
 
 .nav {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .nav li {
     margin-left: 20px;
 }
 
-.nav li a.active {
-    color: #ffffff;
-    background: #eb3614;
+.nav li a.active,
+.nav li a:hover {
+    text-decoration: underline;
+    background: transparent;
 }
 
 #device-search {
@@ -63,13 +76,13 @@ a:hover {
 }
 
 #device-search form {
-    margin: 0;
+    margin: 0 12px 0 0;
 }
 
 #device-search input[type="text"] {
     margin-bottom: 0;
     font-size: 16px;
-    width: 256px;
+    width: 300px;
 }
 #device-list,
 #employer-list {
@@ -289,6 +302,7 @@ a:hover {
 
 #developer {
     margin-bottom: 0;
+    width: 170px;
 }
 
 
@@ -309,8 +323,8 @@ table .date {
 
 .form-signin {
     max-width: 300px;
-    padding: 19px 29px 29px;
-    margin: 0 auto 20px;
+    padding: 40px;
+    margin: 40px auto;
     background-color: #fff;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 5px;
@@ -319,4 +333,24 @@ table .date {
     -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
     box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.form-signin input {
+    width: 285px;
+    margin: 8px 0;
+    padding: 6px;
+    font-size: 16px;
+}
+.form-signin .btn {
+    margin-top: 5px;
+    padding: 7px 25px 8px 25px;
+}
+
+.footer ul li {
+    display: inline-block;
+    list-style: none;
+}
+
+.device-block {
+    margin-left: 60px;
 }

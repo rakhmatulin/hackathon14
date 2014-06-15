@@ -44,7 +44,6 @@
                 {% else %}
                     <li><a href="{% url 'sign_in' %}" class="{% active_url request 'sign_in' %}">Login</a></li>
                 {% endif %}
-                <li><a href="{% url 'about' %}" class="{% active_url request 'about' %}">About</a></li>
             </ul>
             <div id="device-search">
                 <form action="{% url 'search' %}" class="search">
@@ -69,7 +68,12 @@
     <div class="clearfix"></div>
 
     <div class="footer">
-        <p>Team <span class="bold">"Reset --hard"</span> &copy; 2014</p>
+        <div class="pull-left">Team <a href="{% url 'about' %}">"Reset --hard"</a> &copy; 2014</div>
+        <div class="pull-right">
+            <ul>
+                <li><a href="{% url 'about' %}" class="{% active_url request 'about' %}">About</a></li>
+            </ul>
+        </div>
     </div>
 
 </div>

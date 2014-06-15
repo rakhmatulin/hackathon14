@@ -4,57 +4,60 @@
 
 <!-- CONTENT -->
 {% block content %}
+    <h2>Device history</h2>
     <div id="history-list">
         {% if history %}
-            <table width="100%">
-                <thead>
-                    <tr>
-                        <th width="25%">From</th>
-                        <th width="25%">To</th>
-                        <th width="25%">Device</th>
-                        <th width="25%">Date</th>
-                    </tr>
-                </thead>
+            <table width="100%" cellpadding="10">
                 <tbody>
                 {% for history_item in history %}
                     <tr>
-                        <td class="employer" style="float: none;">
+                        <td class="history-employer">
                             {% if history_item.old_employer %}
-                                <div class="image">
+                                <div class="image pull-left">
                                     <a href="{{ history_item.old_employer.get_absolute_url }}">
                                         <img src="{{ history_item.old_employer.image.url }}"/>
                                     </a>
                                 </div>
-                                <div class="name">
+                                <div class="name pull-left">
                                     <a href="{{ history_item.old_employer.get_absolute_url }}">
-                                        {{ history_item.old_employer.last_name_eng }} {{ history_item.old_employer.first_name_eng }}
+                                        {{ history_item.old_employer.last_name_eng }}<br>
+                                        {{ history_item.old_employer.first_name_eng }}
                                     </a>
                                     <a class="icon-search" href="{% url 'history_list_employer' history_item.old_employer_id %}"></a>
                                 </div>
                             {% else %}
-                                <div class="icon-minus-sign"></div>
+                                <div class="pull-left">
+                                    <img src="/static/icons/home-50.png">
+                                </div>
+                                <div class="name pull-left">
+                                    Device<br>store
+                                </div>
                             {% endif %}
                         </td>
-                        <td class="employer" style="float: none;">
-                            <div class="image">
+                        <td class="history-employer">
+                            <img src="/static/icons/right.png">
+                        </td>
+                        <td class="history-employer">
+                            <div class="image pull-left">
                                 <a href="{{ history_item.employer.get_absolute_url }}">
                                     <img src="{{ history_item.employer.image.url }}" />
                                 </a>
                             </div>
-                            <div class="name">
+                            <div class="name pull-left">
                                 <a href="{{ history_item.employer.get_absolute_url }}">
-                                    {{ history_item.employer.last_name_eng }} {{ history_item.employer.first_name_eng }}
+                                    {{ history_item.employer.last_name_eng }}<br>
+                                    {{ history_item.employer.first_name_eng }}
                                 </a>
                                 <a class="icon-search" href="{% url 'history_list_employer' history_item.employer_id %}"></a>
                             </div>
                         </td>
-                        <td class="device" style="float: none;">
-                            <div class="image">
+                        <td class="history-device">
+                            <div class="image pull-left">
                                 <a href="{{ history_item.device.get_absolute_url }}">
                                     <img src="{{ history_item.device.image.url }}" />
                                 </a>
                             </div>
-                            <div class="name">
+                            <div class="name pull-left">
                                 <a href="{{ history_item.device.get_absolute_url }}">
                                     {{ history_item.device }}
                                 </a>

@@ -367,3 +367,25 @@ table .date {
 .ui-autocomplete li a.ui-state-active {
     margin : 0;
 }
+
+#history-list td {
+    border-top: 1px solid #CCC;
+}
+
+#history-list .image {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+#history-list .image img {
+    width: 50px;
+}
+#history-list {
+    text-align: left;
+}
+#history-list .name {
+    padding: 3px 0 0 7px;
+}
+#history-list .name a {
+    font-weight: normal;
+}

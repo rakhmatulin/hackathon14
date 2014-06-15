@@ -1,4 +1,5 @@
 from django import template
+from django.core.urlresolvers import reverse
 
 
 register = template.Library()
@@ -15,3 +16,12 @@ def url_replace(request, field, value):
     dict_ = request.GET.copy()
     dict_[field] = value
     return '?%s' % dict_.urlencode()
+
+
+@register.simple_tag
+def active_url(request, pattern):
+    url = reverse(pattern)
+    path = request.path
+    if path.startswith(url) and url not in path.lstrip(url):
+        return 'active'
+    return ''

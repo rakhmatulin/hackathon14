@@ -71,6 +71,8 @@ def about(request):
 def sparta(request):
     return render(request, 'sparta.html', locals())
 
+def ethernet(request):
+    return render(request, 'ethernet.html', locals())
 
 def employer_list(request):
     employer_filter = EmployersFilterForm.FILTER_CHOICE[0][0]

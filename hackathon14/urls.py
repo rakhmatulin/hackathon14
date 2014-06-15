@@ -19,6 +19,7 @@ urlpatterns = patterns(
     url(r'^history/', 'hackathon14.views.history_list', name='history_list'),
     url(r'^about/', 'hackathon14.views.about', name='about'),
     url(r'^sparta/', 'hackathon14.views.sparta', name='sparta'),
+    url(r'^ethernet/', 'hackathon14.views.ethernet', name='ethernet'),
     url(r'^login/', 'hackathon14.views.sing_in', name='sign_in'),
     url(r'^logout/', 'hackathon14.views.sign_out', name='sign_out'),
     url(r'^device/(?P<device_id>\d+)/$', device_single, name='single_device_view'),

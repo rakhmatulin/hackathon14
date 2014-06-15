@@ -1,0 +1,20 @@
+{% extends 'common/layout.html' %}
+
+<!-- CONTENT -->
+{% block content %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li> &raquo; </li>
+        <li class="active">Ethernet</li>
+    </ol>
+    <h1>Get device map from LAN routers</h1>
+    <ol id="ethernet">
+        <li>Get router list from DB</li>
+        <li>For each router connect via Telnet<br> $ telnet 192.168.10.1 23</li>
+        <li>Get connected devices list from router<br> $ get dhcp server</li>
+        <li>Show all devices on map</li>
+    </ol>
+    <img src="/media/ethernet.jpg">
+
+{% endblock %}
+<!-- /CONTENT -->

@@ -420,3 +420,10 @@ table .date {
 .list-group-item .action {
     margin-top: 8px;
 }
+#ethernet {
+    margin: 20px 80px 80px 80px;
+}
+#ethernet li {
+    font-size: 24px;
+    line-height: 36px;
+}

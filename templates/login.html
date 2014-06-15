@@ -1,0 +1,29 @@
+{% extends 'common/layout.html' %}
+
+<!-- CONTENT -->
+{% block content %}
+    <div class="container" style="width: auto;">
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="text-error text-center">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form class="form-signin" method="POST">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Please sign with SMG credentials</h2>
+            {% for field in form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="text-error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+                {{ field }}
+            {% endfor %}
+            <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+        </form>
+
+    </div>
+{% endblock %}
+<!-- /CONTENT -->

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 import re
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 from django.utils.datetime_safe import datetime
@@ -10,6 +12,7 @@ from StringIO import StringIO
 import os
 from django.conf import settings
 from hackathon14.twid.models import Employer
+
 
 logger = logging.getLogger('twid')
 
@@ -103,6 +106,32 @@ class SmgApi(object):
         logger.info("Got employers list")
         for employer in employers:
             self.process_employer(employer['ProfileId'])
+
+    def login(self, request):
+        url = self.AUTH_URL % (self.username, self.password)
+        response = requests.get(url).json()
+        if response["ErrorCode"]:
+            return
+        employer = Employer.objects.filter(
+            email__startswith=self.username).first()
+        if not employer:
+            logger.error(
+                "Cannot find employer with username %s" % self.username)
+            return
+        if not employer.user_id:
+            # create new user
+            logger.error("Creating new user")
+            user = User(username=employer.profile_id)
+            user.set_password('')
+            user.save()
+            employer.user_id = user
+            employer.save()
+        user = authenticate(username=employer.user_id.username, password='')
+        if not user:
+            logger.error("cannot authenticate user %s" % user)
+            return
+        login(request, user)
+        return user
 
 
 def json_response(data, status=200):

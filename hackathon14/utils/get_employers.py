@@ -132,6 +132,7 @@ class SmgApi(object):
             logger.error("cannot authenticate user %s" % user)
             return
         login(request, user)
+        return user
 
 
 def json_response(data, status=200):

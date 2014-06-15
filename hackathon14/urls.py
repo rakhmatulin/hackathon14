@@ -18,6 +18,8 @@ urlpatterns = patterns(
         'hackathon14.views.history_list', name='history_list_device'),
     url(r'^history/', 'hackathon14.views.history_list', name='history_list'),
     url(r'^about/', 'hackathon14.views.about', name='about'),
+    url(r'^login/', 'hackathon14.views.sing_in', name='sign_in'),
+    url(r'^logout/', 'hackathon14.views.sign_out', name='sign_out'),
     url(r'^device/(?P<device_id>\d+)/$', device_single, name='single_device_view'),
     url(r'^employer/(?P<employer_id>\d+)/$', employer_single, name='single_employe_view'),
     url(r'^device/assign/(?P<device_id>\d+)/$',

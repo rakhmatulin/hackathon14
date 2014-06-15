@@ -354,3 +354,16 @@ table .date {
 .device-block {
     margin-left: 60px;
 }
+
+.ui-autocomplete {
+    background: white;
+    border: 1px solid #EEE;
+}
+
+.ui-autocomplete li a {
+    cursor: pointer;
+}
+.ui-autocomplete li a.ui-state-focus,
+.ui-autocomplete li a.ui-state-active {
+    margin : 0;
+}

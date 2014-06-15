@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 from hackathon14.twid.models import DeviceUpdateRequest
 from hackathon14.twid.models import Device, Employer, History
@@ -23,7 +23,7 @@ def device_single(request, device_id):
         'owner': owner,
         'names': names,
     }
-    return render_to_response('twid/device_single.html', context)
+    return render(request, 'twid/device_single.html', context)
 
 
 def employer_single(request, employer_id):
@@ -33,7 +33,7 @@ def employer_single(request, employer_id):
         'employer': employer,
         'devices': devices
     }
-    return render_to_response('twid/employer_single.html', context)
+    return render(request, 'twid/employer_single.html', context)
 
 
 def assign_device(request, device_id):

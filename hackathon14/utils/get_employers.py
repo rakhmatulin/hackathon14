@@ -121,13 +121,12 @@ class SmgApi(object):
         if not employer.user_id:
             # create new user
             logger.error("Creating new user")
-            user = User.objects.create(
-                username=employer.profile_id, password='')
+            user = User(username=employer.profile_id)
+            user.set_password('')
+            user.save()
             employer.user_id = user
             employer.save()
-        user = authenticate(
-            username=employer.user_id.username,
-            password=employer.user_id.password)
+        user = authenticate(username=employer.user_id.username, password='')
         if not user:
             logger.error("cannot authenticate user %s" % user)
             return

@@ -129,16 +129,12 @@ def history_list(request, employer_id=None, device_id=None):
 
 def sing_in(request):
 
-    form = SignInForm(request.POST or None)
+    form = SignInForm(request, request.POST or None)
     if form.is_valid():
         return redirect('index')
-    print dict(form.errors)
-    for field in form:
-        for error in field.errors:
-            print error
     return render(request, 'login.html', locals())
 
 
 def sign_out(request):
     logout(request)
-    return redirect(reverse('login'))
+    return redirect(reverse('sign_in'))

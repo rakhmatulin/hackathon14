@@ -20,8 +20,10 @@ def url_replace(request, field, value):
 
 @register.simple_tag
 def active_url(request, pattern):
-    url = reverse(pattern)
+    parts = pattern.split(',')
+    urls = [reverse(part) for part in parts]
     path = request.path
-    if path.startswith(url) and url not in path.lstrip(url):
+    if any([path.startswith(url)
+            and url not in path.lstrip(url) for url in urls]):
         return 'active'
     return ''

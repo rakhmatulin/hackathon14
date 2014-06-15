@@ -5,12 +5,11 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hackathon14.twid.forms import DevicesFilterForm, EmployersFilterForm, \
     SignInForm
-from hackathon14.utils.get_employers import SmgApi
 from twid.models import Device, Employer, History
 from django.db.models import Q
 
 
-PAGINATOR_COUNT = 30
+PAGINATOR_COUNT = 20
 
 
 def index(request):
@@ -68,8 +67,10 @@ def search(request):
 def about(request):
     return render(request, 'about.html', locals())
 
+
 def sparta(request):
     return render(request, 'sparta.html', locals())
+
 
 def employer_list(request):
     employer_filter = EmployersFilterForm.FILTER_CHOICE[0][0]

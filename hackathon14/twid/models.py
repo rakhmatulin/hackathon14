@@ -87,7 +87,7 @@ class Device(models.Model):
             select_related('employer')
         if query:
             devices = devices.filter(
-                Q(sku__icontains=query) | Q(model__icontains=query))
+                Q(sku__icontains=query) | Q(model__icontains=query) | Q(os__icontains=query))
         dt = defaultdict(list)
         for device in devices:
             dt[device.employer.room].append(device)

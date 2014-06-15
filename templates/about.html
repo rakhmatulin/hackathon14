@@ -2,26 +2,34 @@
 
 <!-- CONTENT -->
 {% block content %}
-<ol class="breadcrumb">
-  <li><a href="{% url 'index' %}">Home</a></li>
-  <li> &raquo; </li>
-  <li class="active">About</li>
-</ol>
-<h1>"Reset --hard" Team</h1>
-<div id="about">
-    <div>
-        <h2>Alexander Chaika</h2>
-        <img src="/media/about/1.jpg" style="height: 200px;">
+    <div id="father"></div>
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li> &raquo; </li>
+        <li class="active">About</li>
+    </ol>
+    <h1>"Reset --hard" Team | Magnificent Four!</h1>
+    <div id="about">
+        <div>
+            <h2>Alexander Chaika</h2>
+            <img src="/media/about/1.jpg" style="height: 200px;">
+        </div>
+        <div>
+            <h2>Ernest Rakhmatulin</h2>
+            <img src="/media/about/2.png" style="height: 200px;">
+        </div>
+        <div>
+            <h2>Igor Nemilentsev</h2>
+            <img src="/media/about/3.png" style="height: 200px;">
+        </div>
     </div>
-    <div>
-        <h2>Ernest Rakhmatulin</h2>
-        <img src="/media/about/2.png" style="height: 200px;">
-    </div>
-    <div>
-        <h2>Igor Nemilentsev</h2>
-        <img src="/media/about/3.png" style="height: 200px;">
-    </div>
-</div>
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            $("#father").delay( 8000).animate({bottom: 0}, 600).delay(400).animate({bottom: -900}, 600)
+        }
+
+    </script>
+
 {% endblock %}
 <!-- /CONTENT -->

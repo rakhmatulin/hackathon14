@@ -2,12 +2,27 @@
 
 <!-- CONTENT -->
 {% block content %}
-    <div class="container">
+    <div class="container" style="width: auto;">
 
-        <form class="form-signin">
+        {% if form.non_field_errors %}
+            {% for error in form.non_fields_errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form class="form-signin" method="POST">
+            {% csrf_token %}
             <h2 class="form-signin-heading">Please sign with SMG credentials</h2>
-            <input type="text" class="input-block-level" placeholder="Email address">
-            <input type="password" class="input-block-level" placeholder="Password">
+            {% for field in form %}
+                {{ field.errors }}
+                {% if field.errors %}
+                    {{ field.errors }}
+                    {% for error in field.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+                {{ field }}
+            {% endfor %}
             <button class="btn btn-large btn-primary" type="submit">Sign in</button>
         </form>
 

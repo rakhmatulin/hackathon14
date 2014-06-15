@@ -1,7 +1,11 @@
+from django.contrib.auth import logout
+from django.core.urlresolvers import reverse
 from django.db.models import Count
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from hackathon14.twid.forms import DevicesFilterForm, EmployersFilterForm
+from hackathon14.twid.forms import DevicesFilterForm, EmployersFilterForm, \
+    SignInForm
+from hackathon14.utils.get_employers import SmgApi
 from twid.models import Device, Employer, History
 from django.db.models import Q
 
@@ -121,3 +125,20 @@ def history_list(request, employer_id=None, device_id=None):
         # If page is out of range (e.g. 9999), deliver last page of results.
         history = paginator.page(paginator.num_pages)
     return render(request, 'history.html', locals())
+
+
+def sing_in(request):
+
+    form = SignInForm(request.POST or None)
+    if form.is_valid():
+        return redirect('index')
+    print dict(form.errors)
+    for field in form:
+        for error in field.errors:
+            print error
+    return render(request, 'login.html', locals())
+
+
+def sign_out(request):
+    logout(request)
+    return redirect(reverse('login'))

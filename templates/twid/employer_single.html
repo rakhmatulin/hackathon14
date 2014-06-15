@@ -2,14 +2,14 @@
 {% load staticfiles %}
 {% load static %}
 {% block content %}
-<ol class="breadcrumb">
-  <li><a href="/">Home</a></li>
-  <li> &raquo; </li>
-  <li class="active">{{ employer.first_name_eng }} {{ employer.last_name_eng }}</li>
-</ol>
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li> &raquo; </li>
+        <li class="active">{{ employer.first_name_eng }} {{ employer.last_name_eng }}</li>
+    </ol>
     <div class="row employer-profile">
         <div class="span2">
-            <img src="/media/{{ employer.image }}" class="employer-image" />
+            <img src="/media/{{ employer.image }}" class="employer-image"/>
         </div>
         <div class="span4">
             <h2>{{ employer.first_name_eng }} {{ employer.last_name_eng }}</h2>
@@ -37,10 +37,18 @@
             <table class="table table-hover">
                 {% for device in devices %}
                     <tr>
-                        <td><a href="/device/{{device.pk}}">{{device}}</a></td>
+                        <td><a href="/device/{{ device.pk }}">{{ device }}</a></td>
                     </tr>
                 {% endfor %}
             </table>
+            <div class="row">
+                <div class="span3">
+                    <h3>Main Skills</h3>
+                    {% for skill in skills %}
+                        <span class="label label-success">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 

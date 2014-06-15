@@ -55,9 +55,14 @@ def device_single(request, device_id):
 def employer_single(request, employer_id):
     employer = Employer.objects.get(id=employer_id)
     devices = employer.get_devices()
+    skills = []
+    if employer.skills:
+        skills = employer.skills.split()
+    print skills
     context = {
         'employer': employer,
-        'devices': devices
+        'devices': devices,
+        'skills': skills,
     }
     return render(request, 'twid/employer_single.html', context)
 

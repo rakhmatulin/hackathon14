@@ -4,6 +4,11 @@
 
 <!-- CONTENT -->
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li> &raquo; </li>
+        <li class="active">History</li>
+    </ol>
     <h2>Device history</h2>
     <div id="history-list">
         {% if history %}

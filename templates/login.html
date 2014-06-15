@@ -2,6 +2,11 @@
 
 <!-- CONTENT -->
 {% block content %}
+    <ol class="breadcrumb">
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <li> &raquo; </li>
+      <li class="active">Login</li>
+    </ol>
     <div class="container" style="width: auto;">
 
         {% if form.non_field_errors %}

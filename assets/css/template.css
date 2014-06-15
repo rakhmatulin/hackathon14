@@ -290,6 +290,7 @@ a:hover {
     margin-bottom: 0;
 }
 
+
 #father {
     background: url(../img/father.png) no-repeat 0% 100%;
     height: 400px;
@@ -298,3 +299,10 @@ a:hover {
     bottom: -404px;
     z-index: 8;
 }
+
+table .date {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+

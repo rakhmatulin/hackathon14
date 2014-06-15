@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from datetime import datetime
@@ -13,6 +12,7 @@ from hackathon14.utils.get_employers import json_error_response, \
     json_success_response
 
 
+@login_required
 def device_single(request, device_id):
     employer = Employer.objects.filter(user_id=request.user)[0]
     if request.method == "POST":

@@ -128,10 +128,11 @@ def history_list(request, employer_id=None, device_id=None):
 
 
 def sing_in(request):
-
-    form = SignInForm(request, request.POST or None)
+    next_url = request.GET.get('next')
+    initial = {'next': next_url} if next_url else {}
+    form = SignInForm(request, request.POST or None, initial=initial)
     if form.is_valid():
-        return redirect('index')
+        return redirect(form.cleaned_data.get('next') or 'index')
     return render(request, 'login.html', locals())
 
 

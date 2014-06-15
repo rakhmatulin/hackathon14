@@ -109,6 +109,8 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+LOGIN_URL = '/login/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

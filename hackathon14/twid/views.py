@@ -20,7 +20,7 @@ def device_single(request, device_id):
             return redirect(reverse('sign_in'))
         form = UpdateRequestForm(request.POST)
         if form.is_valid():
-            employer = Employer.objects.filter(user_id=request.user)[0]
+            employer = Employer.objects.get(user_id=request.user)
             update_request = DeviceUpdateRequest()
             update_request.date = datetime.now()
             update_request.request_message = request.POST.get('request_message')

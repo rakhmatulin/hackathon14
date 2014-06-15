@@ -54,11 +54,13 @@
                             </tr>
                         {% endfor %}
                     </table>
+                    {% if request.user.is_authenticated %}
                     <form>
                         {% csrf_token %}
                         <button id="give-device-button" class="btn btn-primary" type="button"><i class="icon-arrow-right icon-white"></i>Push It</button>
                         <input id="developer" type="text" class="input-medium">
                     </form>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">

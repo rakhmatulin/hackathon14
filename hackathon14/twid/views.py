@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from datetime import datetime
@@ -12,12 +13,13 @@ from hackathon14.utils.get_employers import json_error_response, \
     json_success_response
 
 
-@login_required
 def device_single(request, device_id):
-    employer = Employer.objects.filter(user_id=request.user)[0]
     if request.method == "POST":
+        if not request.user.is_authenticated():
+            return redirect(reverse('sign_in'))
         form = UpdateRequestForm(request.POST)
         if form.is_valid():
+            employer = Employer.objects.filter(user_id=request.user)[0]
             update_request = DeviceUpdateRequest()
             update_request.date = datetime.now()
             update_request.request_message = request.POST.get('request_message')
@@ -57,6 +59,7 @@ def employer_single(request, employer_id):
     return render(request, 'twid/employer_single.html', context)
 
 
+@login_required
 def assign_device(request, device_id):
     device = Device.objects.filter(id=device_id).first()
     if device is None:
@@ -74,6 +77,7 @@ def assign_device(request, device_id):
     return json_success_response('Assigned')
 
 
+@login_required
 def vote_for_update(request, request_id, vote):
     employer = Employer.objects.filter(user_id=request.user)[0]
     update_request = DeviceUpdateRequest.objects.get(id=request_id)
@@ -94,8 +98,6 @@ def vote_for_update(request, request_id, vote):
             update_request.save()
         else:
             raise Exception
-
-
     except Exception:
         return json_error_response('Something strange happend.', status=400)
     return json_success_response('Voted!')

@@ -95,14 +95,17 @@
                         {% for request in update_requests %}
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="span2">
-                                        <img src="{{ request.employer.image.url }}" class="img-circle"
-                                             style="height: 80px;width: 80px;">
+                                    <div class="image pull-left">
+                                        <a href="/employer/{{ request.employer.pk }}">
+                                            <img src="{{ request.employer.image.url }}" class="img-circle" style="height: 80px;width: 80px;">
+                                        </a>
                                     </div>
-                                    <div class="span7">
+                                    <div class="info pull-left">
                                         <div>
                                             <div class="mic-info">
-                                                {{ request.employer.first_name }} {{ request.employer.last_name }}
+                                                <a href="/employer/{{ request.employer.pk }}">
+                                                    {{ request.employer.first_name_eng }} {{ request.employer.last_name_eng }}
+                                                </a>
                                                 - {{ request.date }}
                                             </div>
                                         </div>

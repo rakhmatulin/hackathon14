@@ -404,3 +404,20 @@ table .date {
 #sparta img {
     width: 100%;
 }
+.list-group-item .image {
+    float: left;
+    width: 100px;
+}
+.list-group-item .info {
+    float: left;
+    width: 470px;
+}
+.list-group-item .mic-info {
+    color: #666;
+    font-size: 12px;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 8px;
+}
+.list-group-item .action {
+    margin-top: 8px;
+}

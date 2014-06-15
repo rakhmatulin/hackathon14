@@ -1,5 +1,5 @@
 from django.db.models import Count
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hackathon14.twid.forms import DevicesFilterForm, EmployersFilterForm
 from twid.models import Device, Employer, History
@@ -47,7 +47,7 @@ def index(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         devices = paginator.page(paginator.num_pages)
     devices_by_room = Device.get_devices_by_room(False)
-    return render_to_response('index.html', locals())
+    return render(request, 'index.html', locals())
 
 
 def search(request):
@@ -58,11 +58,11 @@ def search(request):
         devices = devices.filter(
             Q(sku__icontains=query) | Q(model__icontains=query))
     devices_by_room = Device.get_devices_by_room(query)
-    return render_to_response('search.html', locals())
+    return render(request, 'search.html', locals())
 
 
 def about(request):
-    return render_to_response('about.html', locals())
+    return render(request, 'about.html', locals())
 
 
 def employer_list(request):
@@ -98,7 +98,7 @@ def employer_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         employers = paginator.page(paginator.num_pages)
-    return render_to_response('employer_list.html', locals())
+    return render(request, 'employer_list.html', locals())
 
 
 def history_list(request, employer_id=None, device_id=None):
@@ -120,4 +120,4 @@ def history_list(request, employer_id=None, device_id=None):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         history = paginator.page(paginator.num_pages)
-    return render_to_response('history.html', locals())
+    return render(request, 'history.html', locals())

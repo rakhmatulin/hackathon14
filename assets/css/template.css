@@ -290,3 +290,9 @@ a:hover {
     margin-bottom: 0;
 }
 
+table .date {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+

@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
     <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
         <li> &raquo; </li>
         <li class="active">{{ employer.first_name_eng }} {{ employer.last_name_eng }}</li>
     </ol>

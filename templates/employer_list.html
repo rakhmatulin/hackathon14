@@ -15,6 +15,11 @@
 
 <!-- CONTENT -->
 {% block content %}
+<ol class="breadcrumb">
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li> &raquo; </li>
+    <li class="active">Employers</li>
+</ol>
 <div id="employer-filter">
     Sort by:
     <form action="" class="filter-form">

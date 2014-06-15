@@ -32,7 +32,10 @@ def device_single(request, device_id):
     update_requests = DeviceUpdateRequest.objects.filter(device=device)
     history = History.objects.filter(device=device).order_by('-date')
     names = {}
-    for developer in Employer.objects.all():
+    employers = Employer.objects.all()
+    if device.employer_id:
+        employers = employers.exclude(id=device.employer_id)
+    for developer in employers:
         names[developer.id] = developer.first_name + " " + developer.last_name
     owner = False
     if len(history):

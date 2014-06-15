@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -8,9 +7,8 @@ from datetime import datetime
 from hackathon14.twid.forms import UpdateRequestForm
 from django.template import RequestContext
 
-
 from hackathon14.twid.models import DeviceUpdateRequest
-from hackathon14.twid.models import Device, Employer, History
+from hackathon14.twid.models import Device, Employer, History, DeviceUpdateEmployer
 from hackathon14.utils.get_employers import json_error_response, \
     json_success_response
 
@@ -49,7 +47,6 @@ def device_single(request, device_id):
     return render_to_response('twid/device_single.html', context, RequestContext(request))
 
 
-
 def employer_single(request, employer_id):
     employer = Employer.objects.get(id=employer_id)
     devices = employer.get_devices()
@@ -78,13 +75,27 @@ def assign_device(request, device_id):
 
 
 def vote_for_update(request, request_id, vote):
+    employer = Employer.objects.filter(user_id=request.user)[0]
+    update_request = DeviceUpdateRequest.objects.get(id=request_id)
+    possible_employers = []
+    for history_item in History.objects.filter(device=update_request.device):
+        possible_employers.append(history_item.employer)
     try:
-        update_request = DeviceUpdateRequest.objects.get(id=request_id)
-        if int(vote) == 1:
-            update_request.likes += 1
-        elif int(vote) == 0:
-            update_request.dislikes += 1
-        update_request.save()
+        if employer in possible_employers:
+            if DeviceUpdateEmployer.objects.filter(update_request=update_request, employer=employer):
+                raise Exception
+            device_update_employer = DeviceUpdateEmployer(update_request=update_request, employer=employer)
+            device_update_employer.save()
+            update_request = DeviceUpdateRequest.objects.get(id=request_id)
+            if int(vote) == 1:
+                update_request.likes += 1
+            elif int(vote) == 0:
+                update_request.dislikes += 1
+            update_request.save()
+        else:
+            raise Exception
+
+
     except Exception:
         return json_error_response('Something strange happend.', status=400)
     return json_success_response('Voted!')

@@ -59,7 +59,7 @@ def search(request):
         order_by('-date_action')
     if query:
         devices = devices.filter(
-            Q(sku__icontains=query) | Q(model__icontains=query))
+            Q(sku__icontains=query) | Q(model__icontains=query) | Q(os__icontains=query))
     devices_by_room = Device.get_devices_by_room(query)
     return render(request, 'search.html', locals())
 

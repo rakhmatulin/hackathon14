@@ -68,6 +68,8 @@ def search(request):
 def about(request):
     return render(request, 'about.html', locals())
 
+def sparta(request):
+    return render(request, 'sparta.html', locals())
 
 def employer_list(request):
     employer_filter = EmployersFilterForm.FILTER_CHOICE[0][0]

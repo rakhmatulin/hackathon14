@@ -39,6 +39,11 @@
                 <li><a href="{% url 'index' %}" class={% active_url request 'index,search' %}>Devices</a></li>
                 <li><a href="{% url 'employer_list' %}" class="{% active_url request 'employer_list' %}">Employers</a></li>
                 <li><a href="{% url 'history_list' %}" class="{% active_url request 'history_list' %}">History</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'sign_out' %}" class="{% active_url request 'sign_out' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'sign_in' %}" class="{% active_url request 'sign_in' %}">Login</a></li>
+                {% endif %}
                 <li><a href="{% url 'about' %}" class="{% active_url request 'about' %}">About</a></li>
             </ul>
             <div id="device-search">

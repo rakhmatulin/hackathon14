@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from datetime import datetime
+import re
 
 from hackathon14.twid.forms import UpdateRequestForm
 from django.template import RequestContext
@@ -57,8 +58,7 @@ def employer_single(request, employer_id):
     devices = employer.get_devices()
     skills = []
     if employer.skills:
-        skills = employer.skills.split()
-    print skills
+        skills = re.split(r'\s*,\s*', employer.skills)
     context = {
         'employer': employer,
         'devices': devices,

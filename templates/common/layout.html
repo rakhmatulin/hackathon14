@@ -1,4 +1,7 @@
 {% load staticfiles %}
+
+{% load twid %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,10 +36,10 @@
         </div>
         <div class="pull-right">
             <ul class="nav nav-pills">
-                <li><a href="/">Home</a></li>
-                <li><a href="{% url 'employer_list' %}">Employers</a></li>
-                <li><a href="{% url 'history_list' %}">History</a></li>
-                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'index' %}" class={% active_url request 'index' %}>Home</a></li>
+                <li><a href="{% url 'employer_list' %}" class="{% active_url request 'employer_list' %}">Employers</a></li>
+                <li><a href="{% url 'history_list' %}" class="{% active_url request 'history_list' %}">History</a></li>
+                <li><a href="{% url 'about' %}" class="{% active_url request 'about' %}">About</a></li>
             </ul>
             <div id="device-search">
                 <form action="{% url 'search' %}" class="search">

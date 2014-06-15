@@ -62,7 +62,7 @@ def search(request):
 
 
 def about(request):
-    return render_to_response('about.html')
+    return render_to_response('about.html', locals())
 
 
 def employer_list(request):

@@ -53,6 +53,11 @@ a:hover {
     margin-left: 20px;
 }
 
+.nav li a.active {
+    color: #ffffff;
+    background: #eb3614;
+}
+
 #device-search {
     text-align: right;
 }

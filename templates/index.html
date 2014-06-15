@@ -71,11 +71,11 @@
 <div class="clearfix"></div>
 <div class="pagination">
     {% if devices.has_previous %}
-        <a href="{% url 'employer_list' %}{% url_replace request 'page' devices.previous_page_number %}" class="pull-left">&laquo; Previous</a>
+        <a href="{% url 'index' %}{% url_replace request 'page' devices.previous_page_number %}" class="pull-left">&laquo; Previous</a>
     {% endif %}
 
     {% if devices.has_next %}
-        <a href="{% url 'employer_list' %}{% url_replace request 'page' devices.next_page_number %}" class="pull-right">Next &raquo;</a>
+        <a href="{% url 'index' %}{% url_replace request 'page' devices.next_page_number %}" class="pull-right">Next &raquo;</a>
     {% endif %}
 
     {% if devices.paginator.num_pages > 1 %}

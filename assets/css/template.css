@@ -159,15 +159,15 @@ a:hover {
 
 #device-filter,
 #employer-filter {
-    font-size: 18px;
+    font-size: 16px;
     height: 24px;
 }
 
 #device-filter label,
 #employer-filter label {
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
-    padding: 0;
+    padding: 0 10px 0 0;
 }
 
 #device-filter label input,
@@ -180,7 +180,7 @@ a:hover {
 #employer-filter .filter-form {
     position: relative;
     top: -20px;
-    left: 80px;
+    left: 65px;
 }
 
 #device-filter li,
@@ -223,7 +223,6 @@ a:hover {
 }
 
 #device-map {
-    margin-top: 40px;
     width: 960px;
     overflow-x: scroll;
 }
@@ -403,4 +402,21 @@ table .date {
 }
 #sparta img {
     width: 100%;
+}
+.list-group-item .image {
+    float: left;
+    width: 100px;
+}
+.list-group-item .info {
+    float: left;
+    width: 470px;
+}
+.list-group-item .mic-info {
+    color: #666;
+    font-size: 12px;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 8px;
+}
+.list-group-item .action {
+    margin-top: 8px;
 }

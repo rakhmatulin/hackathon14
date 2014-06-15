@@ -5,9 +5,9 @@ from hackathon14.utils.get_employers import SmgApi
 class DevicesFilterForm(forms.Form):
 
     FILTER_CHOICE = (
-        (1, 'Date'),
-        (2, 'Name'),
-        (3, 'Owner')
+        (1, 'Last date transfer'),
+        (2, 'Device name'),
+        (3, 'Owner name')
     )
 
     device_filter = forms.TypedChoiceField(
@@ -19,9 +19,9 @@ class DevicesFilterForm(forms.Form):
 class EmployersFilterForm(forms.Form):
 
     FILTER_CHOICE = (
-        (1, 'Date'),
-        (2, 'Name'),
-        (3, 'Count')
+        (1, 'Last date transfer'),
+        (2, 'Employer name'),
+        (3, 'Devices in use')
     )
 
     employer_filter = forms.TypedChoiceField(

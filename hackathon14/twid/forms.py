@@ -41,9 +41,11 @@ class SignInForm(forms.Form):
         self.request = request
         super(SignInForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = 'username'
+        self.fields['username'].widget.attrs['type'] = 'password'
         self.fields['password'].widget.attrs['placeholder'] = 'password'
 
-    username = forms.CharField(max_length=100, required=True)
+    username = forms.CharField(
+        max_length=100, required=True, widget=forms.PasswordInput())
     password = forms.CharField(max_length=100, required=True)
 
     def clean(self):

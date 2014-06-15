@@ -223,19 +223,20 @@ a:hover {
 }
 
 #device-map .corridor {
-    height: 80px;
+    height: 100px;
     background: #CCC;
 }
 
 #device-map .room {
     float: left;
     width: 80px;
-    height: 80px;
+    height: 160px;
     padding: 10px;
     border: 1px solid #AAA;
     font-size: 16px;
     border-right: none;
     overflow: hidden;
+    overflow-y: auto;
 }
 #device-map .room ul {
     margin: 0;
@@ -253,7 +254,7 @@ a:hover {
 #device-map .skip {
     float: left;
     width: 30px;
-    height: 80px;
+    height: 160px;
     padding: 10px;
     border: 1px solid #AAA;
     font-size: 16px;

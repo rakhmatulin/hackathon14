@@ -92,30 +92,39 @@
                 {% if update_requests %}
                 <h3>Update requests:</h3>
                     <ul class="list" style="list-style-type: none;">
-                        {% for request in update_requests %}
+                        {% for req in update_requests %}
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="image pull-left">
-                                        <a href="/employer/{{ request.employer.pk }}">
-                                            <img src="{{ request.employer.image.url }}" class="img-circle" style="height: 80px;width: 80px;">
+                                        <a href="{{ req.employer.get_absolute_url }}">
+                                            <img src="{{ req.employer.image.url }}" class="img-circle" style="height: 80px;width: 80px;">
                                         </a>
                                     </div>
                                     <div class="info pull-left">
                                         <div>
                                             <div class="mic-info">
-                                                <a href="/employer/{{ request.employer.pk }}">
-                                                    {{ request.employer.first_name_eng }} {{ request.employer.last_name_eng }}
+                                                <a href="{{ req.employer.get_absolute_url }}">
+                                                    {{ req.employer.first_name_eng }} {{ req.employer.last_name_eng }}
                                                 </a>
-                                                - {{ request.date }}
+                                                - {{ req.date }}
                                             </div>
                                         </div>
                                         <div class="comment-text">
-                                            {{ request.request_message }}
+                                            {{ req.request_message }}
                                         </div>
-                                        <div class="action" id="{{ request.id }}">
-                                            <button class="btn plus" type="button"> {{ request.likes }}</button>
-                                            <button class="btn btn-danger minus"
-                                                    type="button">{{ request.dislikes }}</button>
+                                        <div class="action" id="{{ req.id }}">
+                                            <button class="btn plus" type="button"
+                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 %}
+                                                    disabled
+                                                {% endif %}>
+                                                {{ req.likes }}
+                                            </button>
+                                            <button class="btn btn-danger minus" type="button"
+                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 %}
+                                                    disabled
+                                                {% endif %}>
+                                                {{ req.dislikes }}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -170,10 +179,12 @@
                 type: 'get',
                 success: function () {
                     console.log(self.text(parseInt(self.text()) + 1));
-
+                    self.prop('disabled', true);
+                    self.siblings('.minus').prop('disabled', true);
                 },
                 url: '/vote_for_update/' + update_id + '/1/'
             });
+            return false;
         });
 
         $('.minus').bind('click', function () {
@@ -183,10 +194,12 @@
                 type: 'get',
                 success: function () {
                     console.log(self.text(parseInt(self.text()) + 1));
-
+                    self.prop('disabled', true);
+                    self.siblings('.plus').prop('disabled', true);
                 },
                 url: '/vote_for_update/' + update_id + '/0/'
             });
+            return false;
         });
 
 
@@ -255,6 +268,7 @@
 
                     }
             );
+            return false;
         });
 
     </script>

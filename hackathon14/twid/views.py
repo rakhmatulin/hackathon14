@@ -27,6 +27,7 @@ def device_single(request, device_id):
             update_request.employer = employer
             update_request.device = Device.objects.get(id=device_id)
             update_request.save()
+            return redirect(reverse('single_device_view', args=(device_id,)))
     else:
         form = UpdateRequestForm()
     device = Device.objects.get(id=device_id)
@@ -49,7 +50,6 @@ def device_single(request, device_id):
         'names': names,
         'form': form,
     }
-
     return render_to_response('twid/device_single.html', context, RequestContext(request))
 
 
@@ -94,9 +94,11 @@ def vote_for_update(request, request_id, vote):
         possible_employers.append(history_item.employer)
     try:
         if employer in possible_employers:
-            if DeviceUpdateEmployer.objects.filter(update_request=update_request, employer=employer):
+            if DeviceUpdateEmployer.objects.filter(
+                    update_request=update_request, employer=employer):
                 raise Exception
-            device_update_employer = DeviceUpdateEmployer(update_request=update_request, employer=employer)
+            device_update_employer = DeviceUpdateEmployer(
+                update_request=update_request, employer=employer)
             device_update_employer.save()
             update_request = DeviceUpdateRequest.objects.get(id=request_id)
             if int(vote) == 1:

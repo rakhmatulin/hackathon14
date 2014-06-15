@@ -114,13 +114,13 @@
                                         </div>
                                         <div class="action" id="{{ req.id }}">
                                             <button class="btn plus" type="button"
-                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 %}
+                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 or not request.user.is_authenticated %}
                                                     disabled
                                                 {% endif %}>
                                                 {{ req.likes }}
                                             </button>
                                             <button class="btn btn-danger minus" type="button"
-                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 %}
+                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 or not request.user.is_authenticated %}
                                                     disabled
                                                 {% endif %}>
                                                 {{ req.dislikes }}

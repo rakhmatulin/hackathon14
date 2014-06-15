@@ -31,6 +31,7 @@ class Employer(models.Model):
     room = models.PositiveIntegerField()
     email = models.EmailField()
     date_action = models.DateTimeField(blank=True, null=True)
+    skills = models.TextField(blank=True)
 
     objects = EmployerManager()
 

@@ -3,17 +3,17 @@
 {% load static %}
 {% block content %}
     <ol class="breadcrumb">
-        <li><a href="/">Home</a></li>
+        <li><a href="{% url 'index' %}/">Home</a></li>
         <li> &raquo; </li>
         <li class="active">{{ device.model }}</li>
     </ol>
     <div class="row">
         <div class="span2">
-            <img src="/media/{{ device.image }}" class="img-rounded">
+            <img src="{{ device.image.url }}" class="img-rounded">
             <div id="device-owner-img">
                 {% if owner.image %}
-                    <a href="/employer/{{ owner.pk }}">
-                        <img src="/media/{{ owner.image }}" class="img-circle">
+                    <a href="{{ owner.get_absolute_url }}">
+                        <img src="{{ owner.image.url }}" class="img-circle">
                     </a>
                 {% endif %}
             </div>
@@ -55,7 +55,7 @@
 
                         {% for emp in history %}
                             <tr>
-                                <td><img src="/media/{{ emp.employer.image }}" class="img-rounded small-history"></td>
+                                <td><img src="{{ emp.employer.image.url }}" class="img-rounded small-history"></td>
                                 <td>{{ emp.employer.first_name }} {{ emp.employer.last_name }}</td>
                             </tr>
                         {% endfor %}
@@ -88,7 +88,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="span2">
-                                        <img src="/media/{{ request.employer.image }}" class="img-circle"
+                                        <img src="{{ request.employer.image.url }}" class="img-circle"
                                              style="height: 80px;width: 80px;">
                                     </div>
                                     <div class="span7">

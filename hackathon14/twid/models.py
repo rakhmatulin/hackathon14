@@ -134,7 +134,8 @@ class DeviceUpdateRequest(models.Model):
 
 
 class DeviceUpdateEmployer(models.Model):
-    update_request = models.ForeignKey(DeviceUpdateRequest)
+    update_request = models.ForeignKey(
+        DeviceUpdateRequest, related_name='updates')
     employer = models.ForeignKey(Employer)
 
 @receiver(pre_save, sender=Device)

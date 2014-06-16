@@ -31,7 +31,8 @@ def device_single(request, device_id):
     else:
         form = UpdateRequestForm()
     device = Device.objects.get(id=device_id)
-    update_requests = DeviceUpdateRequest.objects.filter(device=device)
+    update_requests = DeviceUpdateRequest.objects.filter(device=device).\
+        select_related('updates')
     history = History.objects.filter(device=device).order_by('-date')
     names = {}
     employers = Employer.objects.all()

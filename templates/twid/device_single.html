@@ -1,6 +1,8 @@
 {% extends "common/layout.html" %}
 {% load staticfiles %}
 {% load static %}
+{% load twid %}
+
 {% block content %}
     <ol class="breadcrumb">
         <li><a href="{% url 'index' %}">Home</a></li>
@@ -112,17 +114,14 @@
                                         <div class="comment-text">
                                             {{ req.request_message }}
                                         </div>
+                                        {% allowed_vote request req as can_vote %}
                                         <div class="action" id="{{ req.id }}">
                                             <button class="btn plus" type="button"
-                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 or not request.user.is_authenticated %}
-                                                    disabled
-                                                {% endif %}>
+                                                {% if not can_vote %}disabled{% endif %}>
                                                 {{ req.likes }}
                                             </button>
                                             <button class="btn btn-danger minus" type="button"
-                                                {% if request.user.is_authenticated and req.employer.user_id == request.user and req.dislikes > 0 or req.likes > 0 or not request.user.is_authenticated %}
-                                                    disabled
-                                                {% endif %}>
+                                                {% if not can_vote %}disabled{% endif %}>
                                                 {{ req.dislikes }}
                                             </button>
                                         </div>

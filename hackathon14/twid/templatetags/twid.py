@@ -27,3 +27,14 @@ def active_url(request, pattern):
             and url not in path.lstrip(url) for url in urls]):
         return 'active'
     return ''
+
+
+@register.assignment_tag
+def allowed_vote(request, req):
+    same_user = (request.user.is_authenticated and
+                 req.employer.user_id == request.user)
+    if not request.user.is_authenticated() or same_user:
+        return False
+    if request.user.id in [update.employer.user_id for update in req.updates]:
+        return False
+    return True
